@@ -12,10 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cuisine")
-public class Cuisine {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+public class Cuisine extends AbstractEntity{
 	
 	private String name;
 	
@@ -30,15 +27,6 @@ public class Cuisine {
 
 	public Cuisine(String name) {
 		this.name = name;
-	}
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {
