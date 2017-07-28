@@ -1,10 +1,9 @@
-package ua.controller;
+п»їpackage ua.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.enterprise.inject.New;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,15 +19,15 @@ public class TestSwitchMenuHibernate {
 		EntityManagerFactory factory = 
 				Persistence.createEntityManagerFactory("primary");
 		while (isRun) {
-			System.out.println("Меню дій: \n" 
-					+ "Щоб додати кухню, введіть: 1 \n"
-					+ "Щоб редагувати кухню по id, введіть: 2(Спершу введіть поля що хочете змінити, а потім id(номер рядка) для кого застосувати ці зміни); !якщо хочете залишити без змін поле перепешіть його \n"
-					+ "Щоб видалити кухню, введіть: 3 \n"
-					+ "Щоб додати страву, введіть: 4 \n"
-					+ "Щоб редагувати страву по id, введіть: 5 \n"
-					+ "Щоб видалити страву по id, введіть: 6 \n"
-					+ "Щоб відкрити меню пошуку, введіть: 7 \n"
-					+ "Щоб вийти з програми, введіть: 0");
+			System.out.println("РњРµРЅСЋ РґС–Р№: \n" 
+					+ "Р©РѕР± РґРѕРґР°С‚Рё РєСѓС…РЅСЋ, РІРІРµРґС–С‚СЊ: 1 \n"
+					+ "Р©РѕР± СЂРµРґР°РіСѓРІР°С‚Рё РєСѓС…РЅСЋ РїРѕ id, РІРІРµРґС–С‚СЊ: 2(РЎРїРµСЂС€Сѓ РІРІРµРґС–С‚СЊ РїРѕР»СЏ С‰Рѕ С…РѕС‡РµС‚Рµ Р·РјС–РЅРёС‚Рё, Р° РїРѕС‚С–Рј id(РЅРѕРјРµСЂ СЂСЏРґРєР°) РґР»СЏ РєРѕРіРѕ Р·Р°СЃС‚РѕСЃСѓРІР°С‚Рё С†С– Р·РјС–РЅРё); !СЏРєС‰Рѕ С…РѕС‡РµС‚Рµ Р·Р°Р»РёС€РёС‚Рё Р±РµР· Р·РјС–РЅ РїРѕР»Рµ РїРµСЂРµРїРµС€С–С‚СЊ Р№РѕРіРѕ \n"
+					+ "Р©РѕР± РІРёРґР°Р»РёС‚Рё РєСѓС…РЅСЋ, РІРІРµРґС–С‚СЊ: 3 \n"
+					+ "Р©РѕР± РґРѕРґР°С‚Рё СЃС‚СЂР°РІСѓ, РІРІРµРґС–С‚СЊ: 4 \n"
+					+ "Р©РѕР± СЂРµРґР°РіСѓРІР°С‚Рё СЃС‚СЂР°РІСѓ РїРѕ id, РІРІРµРґС–С‚СЊ: 5 \n"
+					+ "Р©РѕР± РІРёРґР°Р»РёС‚Рё СЃС‚СЂР°РІСѓ РїРѕ id, РІРІРµРґС–С‚СЊ: 6 \n"
+					+ "Р©РѕР± РІС–РґРєСЂРёС‚Рё РјРµРЅСЋ РїРѕС€СѓРєСѓ, РІРІРµРґС–С‚СЊ: 7 \n"
+					+ "Р©РѕР± РІРёР№С‚Рё Р· РїСЂРѕРіСЂР°РјРё, РІРІРµРґС–С‚СЊ: 0");
 
 				switch (scanner.next()) {
 				case "1":
@@ -56,7 +55,7 @@ public class TestSwitchMenuHibernate {
 					isRun = false;
 					break;
 				default:
-					System.out.println("Невірний вибір! Спробуйте ще раз!");
+					System.out.println("РќРµРІС–СЂРЅРёР№ РІРёР±С–СЂ! РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·!");
 				}
 			}
 		
@@ -64,7 +63,7 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void addCuisien(EntityManagerFactory factory) {
-		System.out.println("Введіть назву кухні:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ РєСѓС…РЅС–:");
 		String cuisineName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -75,9 +74,9 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void changeCuisien(EntityManagerFactory factory) {
-		System.out.println("Введіть індекс:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ:");
 		int index = scanner.nextInt();
-		System.out.println("Введіть нову назву кухні:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅРѕРІСѓ РЅР°Р·РІСѓ РєСѓС…РЅС–:");
 		String cuisineName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -89,7 +88,7 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void removeCuisien(EntityManagerFactory factory) {
-		System.out.println("Введіть індекс:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ:");
 		int index = scanner.nextInt();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -101,17 +100,17 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void addMeal(EntityManagerFactory factory) {
-		System.out.println("Введіть індекс кухні:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ РєСѓС…РЅС–:");
 		int index = scanner.nextInt();
-		System.out.println("Введіть повний опис:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РїРѕРІРЅРёР№ РѕРїРёСЃ:");
 		String fullDesc = scanner.next();
-		System.out.println("Введіть назву страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ СЃС‚СЂР°РІРё:");
 		String name = scanner.next();
-		System.out.println("Введіть ціну:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С†С–РЅСѓ:");
 		String price = scanner.next();
-		System.out.println("Введіть короткий опис:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РєРѕСЂРѕС‚РєРёР№ РѕРїРёСЃ:");
 		String shortDesc = scanner.next();
-		System.out.println("Введіть вагу страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РІР°РіСѓ СЃС‚СЂР°РІРё:");
 		int weight = scanner.nextInt();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -130,19 +129,19 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void changeMeal(EntityManagerFactory factory) {
-		System.out.println("Введіть індекс страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ СЃС‚СЂР°РІРё:");
 		int indexMeal = scanner.nextInt();
-		System.out.println("Введіть індекс кухні:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ РєСѓС…РЅС–:");
 		int index = scanner.nextInt();
-		System.out.println("Введіть повний опис:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РїРѕРІРЅРёР№ РѕРїРёСЃ:");
 		String fullDesc = scanner.next();
-		System.out.println("Введіть назву страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ СЃС‚СЂР°РІРё:");
 		String name = scanner.next();
-		System.out.println("Введіть ціну:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С†С–РЅСѓ:");
 		String price = scanner.next();
-		System.out.println("Введіть короткий опис:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РєРѕСЂРѕС‚РєРёР№ РѕРїРёСЃ:");
 		String shortDesc = scanner.next();
-		System.out.println("Введіть вагу страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РІР°РіСѓ СЃС‚СЂР°РІРё:");
 		int weight = scanner.nextInt();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -161,7 +160,7 @@ public class TestSwitchMenuHibernate {
 	}
 	
 	private void removeMeal(EntityManagerFactory factory) {
-		System.out.println("Введіть індекс страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ СЃС‚СЂР°РІРё:");
 		int indexMeal = scanner.nextInt();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -175,13 +174,13 @@ public class TestSwitchMenuHibernate {
 	private void findMenu(EntityManagerFactory factory) {
 		boolean isRun = true;
 		while (isRun) {
-			System.out.println("Меню пошуку: \n" 
-					+ "Щоб шукати по назві страви, введіть: 1 \n"
-					+ "Щоб шукати по початковій букві(чи підрявку), введіть: 2 \n"
-					+ "Щоб шукати по назві кухні, введіть: 3 \n"
-					+ "Щоб шукати по ціні, введіть: 4 \n"
-					+ "Щоб шукати по діапазону ціни, введіть: 5 \n"
-					+ "Щоб вийти з меню пошуку, введіть: 0");
+			System.out.println("РњРµРЅСЋ РїРѕС€СѓРєСѓ: \n" 
+					+ "Р©РѕР± С€СѓРєР°С‚Рё РїРѕ РЅР°Р·РІС– СЃС‚СЂР°РІРё, РІРІРµРґС–С‚СЊ: 1 \n"
+					+ "Р©РѕР± С€СѓРєР°С‚Рё РїРѕ РїРѕС‡Р°С‚РєРѕРІС–Р№ Р±СѓРєРІС–(С‡Рё РїС–РґСЂСЏРІРєСѓ), РІРІРµРґС–С‚СЊ: 2 \n"
+					+ "Р©РѕР± С€СѓРєР°С‚Рё РїРѕ РЅР°Р·РІС– РєСѓС…РЅС–, РІРІРµРґС–С‚СЊ: 3 \n"
+					+ "Р©РѕР± С€СѓРєР°С‚Рё РїРѕ С†С–РЅС–, РІРІРµРґС–С‚СЊ: 4 \n"
+					+ "Р©РѕР± С€СѓРєР°С‚Рё РїРѕ РґС–Р°РїР°Р·РѕРЅСѓ С†С–РЅРё, РІРІРµРґС–С‚СЊ: 5 \n"
+					+ "Р©РѕР± РІРёР№С‚Рё Р· РјРµРЅСЋ РїРѕС€СѓРєСѓ, РІРІРµРґС–С‚СЊ: 0");
 			String input = scanner.next();
 			switch (input) {
 			case "1":
@@ -203,14 +202,14 @@ public class TestSwitchMenuHibernate {
 				isRun = false;
 				break;
 			default:
-				System.out.println("Невірний вибір! Спробуйте ще раз!");
+				System.out.println("РќРµРІС–СЂРЅРёР№ РІРёР±С–СЂ! РЎРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·!");
 			}
 		}
 	}
 	
 	private void findByName(EntityManagerFactory factory) {
 		int count = 0;
-		System.out.println("Введіть назву страви:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ СЃС‚СЂР°РІРё:");
 		String inputName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -227,7 +226,7 @@ public class TestSwitchMenuHibernate {
 												+"\n Weight: \n"+meal.getWeight());
 		}
 		if (count == 0) {
-			System.out.println("Не знайдено страв(и) з таким параметром!");
+			System.out.println("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃС‚СЂР°РІ(Рё) Р· С‚Р°РєРёРј РїР°СЂР°РјРµС‚СЂРѕРј!");
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -235,7 +234,7 @@ public class TestSwitchMenuHibernate {
 	
 	private void findBySubLine(EntityManagerFactory factory) {
 		int count = 0;
-		System.out.println("Введіть початкову букву чи підрядок:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РїРѕС‡Р°С‚РєРѕРІСѓ Р±СѓРєРІСѓ С‡Рё РїС–РґСЂСЏРґРѕРє:");
 		String inputName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -252,7 +251,7 @@ public class TestSwitchMenuHibernate {
 									+"\n Weight: \n"+meal.getWeight());
 		}
 		if (count == 0) {
-			System.out.println("Не знайдено страв(и) з таким параметром!");
+			System.out.println("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃС‚СЂР°РІ(Рё) Р· С‚Р°РєРёРј РїР°СЂР°РјРµС‚СЂРѕРј!");
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -260,7 +259,7 @@ public class TestSwitchMenuHibernate {
 	
 	private void findByCuisineName(EntityManagerFactory factory) {
 		int count = 0;
-		System.out.println("Введіть назву кухні:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РЅР°Р·РІСѓ РєСѓС…РЅС–:");
 		String inputName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -277,7 +276,7 @@ public class TestSwitchMenuHibernate {
 												+"\n Weight: \n"+meal.getWeight());
 		}
 		if (count == 0) {
-			System.out.println("Не знайдено страв(и) з таким параметром!");
+			System.out.println("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃС‚СЂР°РІ(Рё) Р· С‚Р°РєРёРј РїР°СЂР°РјРµС‚СЂРѕРј!");
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -285,7 +284,7 @@ public class TestSwitchMenuHibernate {
 	
 	private void findByPrice(EntityManagerFactory factory) {
 		int count = 0;
-		System.out.println("Введіть ціну:");
+		System.out.println("Р’РІРµРґС–С‚СЊ С†С–РЅСѓ:");
 		String inputName = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -302,7 +301,7 @@ public class TestSwitchMenuHibernate {
 												+"\n Weight: \n"+meal.getWeight());
 		}
 		if (count == 0) {
-			System.out.println("Не знайдено страв(и) з таким параметром!");
+			System.out.println("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃС‚СЂР°РІ(Рё) Р· С‚Р°РєРёРј РїР°СЂР°РјРµС‚СЂРѕРј!");
 		}
 		em.getTransaction().commit();
 		em.close();
@@ -310,9 +309,9 @@ public class TestSwitchMenuHibernate {
 	
 	private void findByPriceRange(EntityManagerFactory factory) {
 		int count = 0;
-		System.out.println("Введіть мінімальну ціну:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РјС–РЅС–РјР°Р»СЊРЅСѓ С†С–РЅСѓ:");
 		String minPrice = scanner.next();
-		System.out.println("Введіть максимальну ціну:");
+		System.out.println("Р’РІРµРґС–С‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅСѓ С†С–РЅСѓ:");
 		String maxPrice = scanner.next();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -330,7 +329,7 @@ public class TestSwitchMenuHibernate {
 												+"\n Weight: \n"+meal.getWeight());
 		}
 		if (count == 0) {
-			System.out.println("Не знайдено страв(и) з таким параметром!");
+			System.out.println("РќРµ Р·РЅР°Р№РґРµРЅРѕ СЃС‚СЂР°РІ(Рё) Р· С‚Р°РєРёРј РїР°СЂР°РјРµС‚СЂРѕРј!");
 		}
 		em.getTransaction().commit();
 		em.close();

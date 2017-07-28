@@ -6,20 +6,14 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import ua.model.view.ComponentView;
-
 @Entity
 @Table(name="meal")
 public class Meal extends AbstractEntity{
-
+	
 	private String photoUrl;
 
 	private int version;
@@ -35,6 +29,7 @@ public class Meal extends AbstractEntity{
 	private BigDecimal price;
 	
 	private int weight;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Cuisine cuisine;
 	

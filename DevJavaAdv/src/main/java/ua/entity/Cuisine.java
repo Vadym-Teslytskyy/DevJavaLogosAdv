@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,9 +13,9 @@ public class Cuisine extends AbstractEntity{
 	
 	private String name;
 	
+
 	@OneToMany(mappedBy="cuisine")
 	private List<Meal> meals = new ArrayList<>();
-	
 	
 
 	public Cuisine() {
@@ -27,6 +24,14 @@ public class Cuisine extends AbstractEntity{
 
 	public Cuisine(String name) {
 		this.name = name;
+	}
+	public List<Meal> getMeals() {
+		return meals;
+	}
+	
+	
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
 	}
 
 	public String getName() {
