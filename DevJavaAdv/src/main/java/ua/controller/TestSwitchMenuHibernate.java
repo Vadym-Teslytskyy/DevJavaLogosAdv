@@ -27,6 +27,7 @@ public class TestSwitchMenuHibernate {
 					+ "Щоб редагувати страву по id, введіть: 5 \n"
 					+ "Щоб видалити страву по id, введіть: 6 \n"
 					+ "Щоб відкрити меню пошуку, введіть: 7 \n"
+					+ "Щоб відкрити меню з рошриненими можливостями(агрегативні ф-ії), введіть: 8 \n"
 					+ "Щоб вийти з програми, введіть: 0");
 
 				switch (scanner.next()) {
@@ -50,6 +51,9 @@ public class TestSwitchMenuHibernate {
 					break;
 				case "7":
 					findMenu(factory);
+					break;
+				case "8":
+					agregationMenu(factory);
 					break;
 				case "0":
 					isRun = false;
@@ -318,6 +322,103 @@ public class TestSwitchMenuHibernate {
 		List<Meal> list = em.createQuery("FROM Meal m WHERE m.price > ?1 AND m.price < ?2",Meal.class)
 				.setParameter(1, new BigDecimal(minPrice))
 				.setParameter(2, new BigDecimal(maxPrice))
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+								+"\n Name: \n"+meal.getName()
+									+"\n FullDesc: \n"+meal.getFullDescription()
+										+"\n ShortDesc \n"+meal.getShortDescription()
+											+"\n Price: \n"+meal.getPrice()
+												+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void agregationMenu(EntityManagerFactory factory) {
+		boolean isRun = true;
+		while (isRun) {
+			System.out.println("Меню пошуку: \n" 
+					+ "Щоб знайти максимальну ціну страви, введіть: 1 \n"
+					+ "Щоб знайти мінімальну ціну страви, введіть: 2 \n"
+					+ "Щоб знайти страви з ціною нижчою ніж середня арифметична, введіть: 3 \n"
+					+ "Щоб знайти суму усіх цін: 4 \n"
+					+ "Щоб к-сть усіх став: 5 \n"
+					+ "Щоб вийти з меню, введіть: 0");
+			String input = scanner.next();
+			switch (input) {
+			case "1":
+				findMaxPrice(factory);
+				break;
+			case "2":
+				findMinPrice(factory);
+				break;
+			case "3":
+				findLessAvgOfPrice(factory);
+				break;
+			case "4":
+				findSumOfPrice(factory);
+				break;
+			case "5":
+				findCountOfPrice(factory);
+				break;
+			case "0":
+				isRun = false;
+				break;
+			default:
+				System.out.println("Невірний вибір! Спробуйте ще раз!");
+			}
+		}
+	}
+	
+	private void findMaxPrice(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		BigDecimal max = em.createQuery("SELECT max(m.price) FROM Meal m",BigDecimal.class)
+				.getSingleResult();
+		System.out.println("Максимальна ціна: "+max);
+		em.getTransaction().commit();
+		em.close();
+	}
+	private void findMinPrice(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		BigDecimal min = em.createQuery("SELECT min(m.price) FROM Meal m",BigDecimal.class)
+				.getSingleResult();
+		System.out.println("Мінімальна ціна: "+min);
+		em.getTransaction().commit();
+		em.close();
+	}
+	private void findSumOfPrice(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		BigDecimal sum = em.createQuery("SELECT sum(m.price) FROM Meal m",BigDecimal.class)
+				.getSingleResult();
+		System.out.println("Сума усіх цін: "+sum);
+		em.getTransaction().commit();
+		em.close();
+	}
+	private void findCountOfPrice(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		Long count = em.createQuery("SELECT count(m.id) FROM Meal m",Long.class)
+				.getSingleResult();
+		System.out.println("К-сть усіх страв: "+count);
+		em.getTransaction().commit();
+		em.close();
+	}
+	private void findLessAvgOfPrice(EntityManagerFactory factory) {
+		int count = 0;
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		Double avg = em.createQuery("SELECT avg(m.price) FROM Meal m",Double.class)
+				.getSingleResult();
+		List<Meal> list = em.createQuery("FROM Meal m WHERE m.price=?1",Meal.class)
+				.setParameter(1, new BigDecimal(avg))
 				.getResultList();
 		for (Meal meal : list) {
 			count++;
