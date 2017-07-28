@@ -1,8 +1,10 @@
 package ua.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
+import javax.enterprise.inject.New;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -25,6 +27,7 @@ public class TestSwitchMenuHibernate {
 					+ "Щоб додати страву, введіть: 4 \n"
 					+ "Щоб редагувати страву по id, введіть: 5 \n"
 					+ "Щоб видалити страву по id, введіть: 6 \n"
+					+ "Щоб відкрити меню пошуку, введіть: 7 \n"
 					+ "Щоб вийти з програми, введіть: 0");
 
 				switch (scanner.next()) {
@@ -45,6 +48,9 @@ public class TestSwitchMenuHibernate {
 					break;
 				case "6":
 					removeMeal(factory);
+					break;
+				case "7":
+					findMenu(factory);
 					break;
 				case "0":
 					isRun = false;
@@ -162,6 +168,170 @@ public class TestSwitchMenuHibernate {
 		Meal meal = em.find(Meal.class, indexMeal);
 		em.persist(meal);
 		em.remove(meal);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void findMenu(EntityManagerFactory factory) {
+		boolean isRun = true;
+		while (isRun) {
+			System.out.println("Меню пошуку: \n" 
+					+ "Щоб шукати по назві страви, введіть: 1 \n"
+					+ "Щоб шукати по початковій букві(чи підрявку), введіть: 2 \n"
+					+ "Щоб шукати по назві кухні, введіть: 3 \n"
+					+ "Щоб шукати по ціні, введіть: 4 \n"
+					+ "Щоб шукати по діапазону ціни, введіть: 5 \n"
+					+ "Щоб вийти з меню пошуку, введіть: 0");
+			String input = scanner.next();
+			switch (input) {
+			case "1":
+				findByName(factory);
+				break;
+			case "2":
+				findBySubLine(factory);
+				break;
+			case "3":
+				findByCuisineName(factory);
+				break;
+			case "4":
+				findByPrice(factory);
+				break;
+			case "5":
+				findByPriceRange(factory);
+				break;
+			case "0":
+				isRun = false;
+				break;
+			default:
+				System.out.println("Невірний вибір! Спробуйте ще раз!");
+			}
+		}
+	}
+	
+	private void findByName(EntityManagerFactory factory) {
+		int count = 0;
+		System.out.println("Введіть назву страви:");
+		String inputName = scanner.next();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Meal> list = em.createQuery("FROM Meal m WHERE m.name=?1",Meal.class)
+				.setParameter(1, inputName)
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+								+"\n Name: \n"+meal.getName()
+									+"\n FullDesc: \n"+meal.getFullDescription()
+										+"\n ShortDesc \n"+meal.getShortDescription()
+											+"\n Price: \n"+meal.getPrice()
+												+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void findBySubLine(EntityManagerFactory factory) {
+		int count = 0;
+		System.out.println("Введіть початкову букву чи підрядок:");
+		String inputName = scanner.next();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Meal> list = em.createQuery("FROM Meal m WHERE m.name LIKE ?1",Meal.class)
+				.setParameter(1, inputName+"%")
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+					+"\n Name: \n"+meal.getName()
+						+"\n FullDesc: \n"+meal.getFullDescription()
+							+"\n ShortDesc \n"+meal.getShortDescription()
+								+"\n Price: \n"+meal.getPrice()
+									+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void findByCuisineName(EntityManagerFactory factory) {
+		int count = 0;
+		System.out.println("Введіть назву кухні:");
+		String inputName = scanner.next();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Meal> list = em.createQuery("SELECT m FROM Meal m JOIN m.cuisine c WHERE c.name= ?1",Meal.class)
+				.setParameter(1, inputName)
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+								+"\n Name: \n"+meal.getName()
+									+"\n FullDesc: \n"+meal.getFullDescription()
+										+"\n ShortDesc \n"+meal.getShortDescription()
+											+"\n Price: \n"+meal.getPrice()
+												+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void findByPrice(EntityManagerFactory factory) {
+		int count = 0;
+		System.out.println("Введіть ціну:");
+		String inputName = scanner.next();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Meal> list = em.createQuery("FROM Meal m WHERE m.price=?1",Meal.class)
+				.setParameter(1, new BigDecimal(inputName))
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+								+"\n Name: \n"+meal.getName()
+									+"\n FullDesc: \n"+meal.getFullDescription()
+										+"\n ShortDesc \n"+meal.getShortDescription()
+											+"\n Price: \n"+meal.getPrice()
+												+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void findByPriceRange(EntityManagerFactory factory) {
+		int count = 0;
+		System.out.println("Введіть мінімальну ціну:");
+		String minPrice = scanner.next();
+		System.out.println("Введіть максимальну ціну:");
+		String maxPrice = scanner.next();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Meal> list = em.createQuery("FROM Meal m WHERE m.price > ?1 AND m.price < ?2",Meal.class)
+				.setParameter(1, new BigDecimal(minPrice))
+				.setParameter(2, new BigDecimal(maxPrice))
+				.getResultList();
+		for (Meal meal : list) {
+			count++;
+			System.out.println("Meal #"+count
+								+"\n Name: \n"+meal.getName()
+									+"\n FullDesc: \n"+meal.getFullDescription()
+										+"\n ShortDesc \n"+meal.getShortDescription()
+											+"\n Price: \n"+meal.getPrice()
+												+"\n Weight: \n"+meal.getWeight());
+		}
+		if (count == 0) {
+			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
 		em.getTransaction().commit();
 		em.close();
 	}
