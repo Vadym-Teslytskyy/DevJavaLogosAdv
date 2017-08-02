@@ -510,11 +510,11 @@ public class TestSwitchMenuHibernate {
 		int count = 0;
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-		List<Cuisine> views = em.createQuery("SELECT c.name FROM Cuisine c", Cuisine.class)
+		List<String> views = em.createQuery("SELECT c.name FROM Cuisine c", String.class)
  				.getResultList();
-		for (Cuisine cuisine : views) {
+		for (String cuisineName : views) {
 			count++;
-			System.out.println("#"+count+" "+cuisine.getName());
+			System.out.println("#"+count+" "+cuisineName);
 		}
 		em.getTransaction().commit();
 		em.close();
