@@ -15,6 +15,18 @@ public class MealIndexView {
 	private String name;
 	
 	private String shortDescription;
+	
+	
+
+	public MealIndexView(Integer id, String photoUrl, int version, BigDecimal rate, String name,
+			String shortDescription) {
+		this.id = id;
+		this.photoUrl = photoUrl;
+		this.version = version;
+		this.rate = rate;
+		this.name = name;
+		this.shortDescription = shortDescription;
+	}
 
 	public Integer getId() {
 		return id;
@@ -62,6 +74,12 @@ public class MealIndexView {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	@Override
+	public String toString() {
+		return "MealIndexView [id=" + id + ", photoUrl=" + photoUrl + ", version=" + version + ", rate=" + rate
+				+ ", name=" + name + ", shortDescription=" + shortDescription + "]";
 	}
 	
 	

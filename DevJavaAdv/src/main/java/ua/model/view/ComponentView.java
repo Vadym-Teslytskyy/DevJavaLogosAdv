@@ -8,6 +8,14 @@ public class ComponentView {
 	private BigDecimal amount;
 	
 	private String ms;
+	
+	
+
+	public ComponentView(String ingredient, BigDecimal amount, String ms) {
+		this.ingredient = ingredient;
+		this.amount = amount;
+		this.ms = ms;
+	}
 
 	public String getIngredient() {
 		return ingredient;
@@ -32,4 +40,11 @@ public class ComponentView {
 	public void setMs(String ms) {
 		this.ms = ms;
 	}
+
+	@Override
+	public String toString() {
+		return "ComponentView [ingredient=" + ingredient + ", amount=" + amount + ", ms=" + ms + "]";
+	}
+	
+	
 }

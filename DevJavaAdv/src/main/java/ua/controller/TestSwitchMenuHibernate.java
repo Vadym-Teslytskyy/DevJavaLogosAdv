@@ -10,6 +10,9 @@ import javax.persistence.Persistence;
 
 import ua.entity.Cuisine;
 import ua.entity.Meal;
+import ua.model.view.ComponentView;
+import ua.model.view.MealIndexView;
+import ua.model.view.MealView;
 
 public class TestSwitchMenuHibernate {
 	private Scanner scanner = new Scanner(System.in);
@@ -28,6 +31,7 @@ public class TestSwitchMenuHibernate {
 					+ "Щоб видалити страву по id, введіть: 6 \n"
 					+ "Щоб відкрити меню пошуку, введіть: 7 \n"
 					+ "Щоб відкрити меню з рошриненими можливостями(агрегативні ф-ії), введіть: 8 \n"
+					+ "Щоб відкрити меню виводу views, введіть: 9 \n"
 					+ "Щоб вийти з програми, введіть: 0");
 
 				switch (scanner.next()) {
@@ -54,6 +58,9 @@ public class TestSwitchMenuHibernate {
 					break;
 				case "8":
 					agregationMenu(factory);
+					break;
+				case "9":
+					viewsMenu(factory);
 					break;
 				case "0":
 					isRun = false;
@@ -431,6 +438,83 @@ public class TestSwitchMenuHibernate {
 		}
 		if (count == 0) {
 			System.out.println("Не знайдено страв(и) з таким параметром!");
+		}
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void viewsMenu(EntityManagerFactory factory) {
+		boolean isRun=true;
+		while (isRun) {
+			System.out.println("Меню пошуку: \n" 
+					+ "Щоб вивести MealView, введіть: 1 \n"
+					+ "Щоб вивести MealIndexView, введіть: 2 \n"
+					+ "Щоб вивести ComponentView, введіть: 3 \n"
+					+ "Щоб вивести назви всіх кухонь, введіть: 4 \n"
+					+ "Щоб вийти з меню, введіть: 0");
+			String input = scanner.next();
+			switch (input) {
+			case "1":
+				showMealView(factory);
+				break;
+			case "2":
+				showMealIndexView(factory);
+				break;
+			case "3":
+				showComponentView(factory);
+				break;
+			case "4":
+				showAllCuisinesName(factory);
+				break;
+			case "0":
+				isRun = false;
+				break;
+			default:
+				System.out.println("Невірний вибір! Спробуйте ще раз!");
+			}
+		}
+		
+	}
+	
+	private void showMealView(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<MealView> views = em.createQuery("SELECT new ua.model.view.MealView(m.id, m.photoUrl, m.version, m.rate, m.name, m.fullDescription, m.price, m.weight, c.name) FROM Meal m JOIN m.cuisine c", MealView.class)
+ 				.getResultList();
+		views.forEach(System.out::println);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void showMealIndexView(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<MealIndexView> views = em.createQuery("SELECT new ua.model.view. MealIndexView(m.id, m.photoUrl, m.version, m.rate, m.name, m.shortDescription) FROM Meal m", MealIndexView.class)
+ 				.getResultList();
+		views.forEach(System.out::println);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void showComponentView(EntityManagerFactory factory) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<ComponentView> views = em.createQuery("SELECT new ua.model.view. ComponentView(String ingredient, BigDecimal amount, ms.name)) FROM ComponentView c JOIN c.ms ms", ComponentView.class)
+ 				.getResultList();
+		views.forEach(System.out::println);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	private void showAllCuisinesName(EntityManagerFactory factory) {
+		int count = 0;
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		List<Cuisine> views = em.createQuery("SELECT c.name FROM Cuisine c", Cuisine.class)
+ 				.getResultList();
+		for (Cuisine cuisine : views) {
+			count++;
+			System.out.println("#"+count+" "+cuisine.getName());
 		}
 		em.getTransaction().commit();
 		em.close();
