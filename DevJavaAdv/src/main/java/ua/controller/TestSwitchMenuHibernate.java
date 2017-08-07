@@ -32,6 +32,7 @@ public class TestSwitchMenuHibernate {
 					+ "Щоб відкрити меню пошуку, введіть: 7 \n"
 					+ "Щоб відкрити меню з рошриненими можливостями(агрегативні ф-ії), введіть: 8 \n"
 					+ "Щоб відкрити меню виводу views, введіть: 9 \n"
+					+ "Щоб відкрити меню пошуку по критеріях, введіть: 10 \n"
 					+ "Щоб вийти з програми, введіть: 0");
 
 				switch (scanner.next()) {
@@ -61,6 +62,10 @@ public class TestSwitchMenuHibernate {
 					break;
 				case "9":
 					viewsMenu(factory);
+					break;
+				case "10":
+				TestSwitchMenuFinder tFinder = new TestSwitchMenuFinder();
+				tFinder.startMenu();
 					break;
 				case "0":
 					isRun = false;
