@@ -10,6 +10,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name="place")
 public class Place extends AbstractEntity{
+	
+	public Place() {
+	}
+	
+
+	public Place(int countofPeople, int number, boolean isFree) {
+		this.countofPeople = countofPeople;
+		this.number = number;
+		this.isFree = isFree;
+	}
+
+
 
 	private int countofPeople;
 	
@@ -28,11 +40,11 @@ public class Place extends AbstractEntity{
 		this.orders = orders;
 	}
 
-	public boolean isFree() {
+	public boolean getIsFree() {
 		return isFree;
 	}
 
-	public void setFree(boolean isFree) {
+	public void setIsFree(boolean isFree) {
 		this.isFree = isFree;
 	}
 

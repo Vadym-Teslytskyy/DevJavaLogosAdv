@@ -11,22 +11,20 @@ import javax.persistence.Table;
 @Table(name="cuisine")
 public class Cuisine extends AbstractEntityName{
 	
-
-	@OneToMany(mappedBy="cuisine")
-	private List<Meal> meals = new ArrayList<>();
-	
-
 	public Cuisine() {
 	}
 	
 	public Cuisine(String name) {
 		super(name);
-}
+	}
+
+	@OneToMany(mappedBy="cuisine")
+	private List<Meal> meals = new ArrayList<>();
 	
+
 	public List<Meal> getMeals() {
 		return meals;
 	}
-	
 	
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;

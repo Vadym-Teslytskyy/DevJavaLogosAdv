@@ -11,6 +11,15 @@ import javax.persistence.Table;
 @Table(name="ms")
 public class Ms extends AbstractEntityName{
 	
+	public Ms() {
+	}
+	
+	public Ms(String name) {
+		super(name);
+	}
+
+
+
 	@OneToMany(mappedBy="ms")
 	private List<Component> components= new ArrayList<>();
 

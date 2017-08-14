@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 
 import ua.entity.Cuisine;
 import ua.entity.Meal;
+import ua.entity.Place;
 import ua.model.view.ComponentView;
 import ua.model.view.MealIndexView;
 import ua.model.view.MealView;
@@ -33,6 +34,7 @@ public class TestSwitchMenuHibernate {
 					+ "Щоб відкрити меню з рошриненими можливостями(агрегативні ф-ії), введіть: 8 \n"
 					+ "Щоб відкрити меню виводу views, введіть: 9 \n"
 					+ "Щоб відкрити меню пошуку по критеріях, введіть: 10 \n"
+					+ "Щоб додати столик, введіть: 11 \n"
 					+ "Щоб вийти з програми, введіть: 0");
 
 				switch (scanner.next()) {
@@ -67,6 +69,9 @@ public class TestSwitchMenuHibernate {
 				TestSwitchMenuFinder tFinder = new TestSwitchMenuFinder();
 				tFinder.startMenu();
 					break;
+				case "11":
+					addPlace(factory);
+						break;
 				case "0":
 					isRun = false;
 					break;
@@ -76,6 +81,19 @@ public class TestSwitchMenuHibernate {
 			}
 		
 		factory.close();
+	}
+	
+	private void addPlace(EntityManagerFactory factory) {
+		System.out.println("Введіть номер столика:");
+		int number = scanner.nextInt();
+		System.out.println("Введіть к-сть людей на який він розрахований:");
+		int countOfPeople = scanner.nextInt();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		Place place = new Place(countOfPeople, number, true);
+		em.persist(place);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
 	private void addCuisien(EntityManagerFactory factory) {

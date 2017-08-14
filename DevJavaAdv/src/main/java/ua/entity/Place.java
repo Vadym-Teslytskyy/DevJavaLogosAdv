@@ -17,6 +17,16 @@ public class Place extends AbstractEntity{
 	
 	private boolean isFree;
 	
+	public Place() {
+	}
+	
+
+	public Place(int countofPeople, int number, boolean isFree) {
+		this.countofPeople = countofPeople;
+		this.number = number;
+		this.isFree = isFree;
+	}
+	
 	@OneToMany(mappedBy="place")
 	private List<Order> orders = new ArrayList<>();
 	
