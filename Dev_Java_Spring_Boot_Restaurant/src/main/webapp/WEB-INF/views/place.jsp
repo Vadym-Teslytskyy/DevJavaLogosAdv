@@ -26,12 +26,6 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-2 col-form-label" for="isFree">Is free:</label>
-						<div class="col-10">
-							<input class="form-control" id="isFree" name="isFree" placeholder="Enter 'true' if this place is free or 'false' if isn`t">
-						</div>
-					</div>
-					<div class="form-group row">
 						<div class="col-8 mr-auto">
 							<button class="btn btn-sm btn-outline-success">Save</button>
 						</div>
