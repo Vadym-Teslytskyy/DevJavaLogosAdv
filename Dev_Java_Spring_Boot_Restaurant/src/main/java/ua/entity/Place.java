@@ -15,10 +15,10 @@ public class Place extends AbstractEntity{
 	}
 	
 
-	public Place(int countofPeople, int number, boolean isFree) {
+	public Place(int countofPeople, int number) {
 		this.countofPeople = countofPeople;
 		this.number = number;
-		this.isFree = isFree;
+		this.isFree = true;
 	}
 
 

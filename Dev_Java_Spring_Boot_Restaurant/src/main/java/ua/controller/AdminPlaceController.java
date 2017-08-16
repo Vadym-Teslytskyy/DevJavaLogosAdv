@@ -37,7 +37,7 @@ public class AdminPlaceController {
 	
 	@PostMapping
 	public String save(@RequestParam int countofPeople, @RequestParam int number){
-		service.save(new Place(countofPeople, number, true));
+		service.save(new Place(countofPeople, number));
 		return "redirect:/admin/place";
 	}
 	

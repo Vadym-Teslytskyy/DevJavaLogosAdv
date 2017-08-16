@@ -48,8 +48,8 @@
 							<td>${place.countofPeople}</td>
 							<td>${place.isFree}</td>
 							<td class="text-center">
-								<a href="/admin/ingredient/update/${place.id}" class="btn btn-outline-warning btn-sm">Update</a>
-								<a href="/admin/ingredient/delete/${place.id}" class="btn btn-outline-danger btn-sm">Delete</a>
+								<a href="/admin/place/update/${place.id}" class="btn btn-outline-warning btn-sm">Update</a>
+								<a href="/admin/place/delete/${place.id}" class="btn btn-outline-danger btn-sm">Delete</a>
 							</td>
 						</tr>
 					</c:forEach>

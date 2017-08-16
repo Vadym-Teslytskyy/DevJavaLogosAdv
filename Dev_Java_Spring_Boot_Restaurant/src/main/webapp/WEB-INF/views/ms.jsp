@@ -36,8 +36,8 @@
 						<tr>
 							<td>${ms.name}</td>
 							<td class="text-center">
-								<a href="/admin/ingredient/update/${ms.id}" class="btn btn-outline-warning btn-sm">Update</a>
-								<a href="/admin/ingredient/delete/${ms.id}" class="btn btn-outline-danger btn-sm">Delete</a>
+								<a href="/admin/ms/update/${ms.id}" class="btn btn-outline-warning btn-sm">Update</a>
+								<a href="/admin/ms/delete/${ms.id}" class="btn btn-outline-danger btn-sm">Delete</a>
 							</td>
 						</tr>
 					</c:forEach>
