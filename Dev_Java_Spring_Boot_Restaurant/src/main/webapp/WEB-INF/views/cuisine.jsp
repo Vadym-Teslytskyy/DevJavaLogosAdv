@@ -44,6 +44,11 @@
 				</table>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-12">
+				<a href="/admin">Back to admin page</a>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

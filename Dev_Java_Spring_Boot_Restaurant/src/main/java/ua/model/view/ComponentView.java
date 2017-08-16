@@ -3,19 +3,37 @@ package ua.model.view;
 import java.math.BigDecimal;
 
 public class ComponentView {
+	
+	private Integer id;
 
 	private String ingredient;
+	
 	private BigDecimal amount;
 	
 	private String ms;
 	
 	
 
-	public ComponentView(String ingredient, BigDecimal amount, String ms) {
+	public ComponentView(Integer id, String ingredient, BigDecimal amount, String ms) {
 		this.ingredient = ingredient;
 		this.amount = amount;
 		this.ms = ms;
+		this.id = id;
 	}
+	
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 
 	public String getIngredient() {
 		return ingredient;

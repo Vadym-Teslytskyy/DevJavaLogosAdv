@@ -12,5 +12,9 @@
 	<a href="/admin/cuisine">Cuisine</a>
 	<a href="/admin/ms">Measuring System</a>
 	<a href="/admin/place">Place</a>
+	<a href="/admin/component">Component</a>
+	<div>
+		<a href="/">Back to main page</a>
+	</div>
 </body>
 </html>

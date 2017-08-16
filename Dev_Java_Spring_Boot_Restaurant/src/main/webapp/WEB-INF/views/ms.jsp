@@ -32,7 +32,7 @@
 						<th class="text-center">Name</th>
 						<th class="text-center">Options</th>
 					</tr>
-					<c:forEach var="ms" items="${ms}">
+					<c:forEach var="mss" items="${mss}">
 						<tr>
 							<td>${ms.name}</td>
 							<td class="text-center">
@@ -42,6 +42,11 @@
 						</tr>
 					</c:forEach>
 				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<a href="/admin">Back to admin page</a>
 			</div>
 		</div>
 	</div>
