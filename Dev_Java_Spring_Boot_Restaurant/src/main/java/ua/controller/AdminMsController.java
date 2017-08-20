@@ -25,7 +25,7 @@ public class AdminMsController {
 	
 	@GetMapping
 	public String show(Model model) {
-		model.addAttribute("ms", service.findAll());
+		model.addAttribute("mss", service.findAll());
 		return "ms";
 	}
 	

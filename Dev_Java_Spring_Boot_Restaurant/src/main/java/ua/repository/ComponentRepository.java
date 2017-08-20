@@ -18,5 +18,6 @@ public interface ComponentRepository extends JpaRepository<Component, Integer>{
 
 	@Query("SELECT new ua.model.view.ComponentView(c.id, i.name, c.amount, ms.name) FROM Component c JOIN c.ingredient i JOIN c.ms ms")
 	List<ComponentView> findAllView();
+	
 
 }

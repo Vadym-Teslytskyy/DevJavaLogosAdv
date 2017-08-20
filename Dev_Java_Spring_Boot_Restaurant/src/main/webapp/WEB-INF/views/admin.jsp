@@ -13,6 +13,7 @@
 	<a href="/admin/ms">Measuring System</a>
 	<a href="/admin/place">Place</a>
 	<a href="/admin/component">Component</a>
+	<a href="/admin/meal">Meal</a>
 	<div>
 		<a href="/">Back to main page</a>
 	</div>

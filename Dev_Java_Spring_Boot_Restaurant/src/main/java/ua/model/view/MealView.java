@@ -40,6 +40,7 @@ public class MealView {
 		this.cuisine = cuisine;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}

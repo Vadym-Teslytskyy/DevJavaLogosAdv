@@ -14,6 +14,25 @@ import javax.persistence.Table;
 @Table(name="meal")
 public class Meal extends AbstractEntityName{
 	
+	
+	
+	public Meal() {
+	}
+	
+
+	public Meal(String name, String fullDescription, BigDecimal price, int weight, Cuisine cuisine,
+			List<Component> components) {
+		super(name);
+		this.fullDescription = fullDescription;
+		this.price = price;
+		this.weight = weight;
+		this.cuisine = cuisine;
+		this.components = components;
+	}
+
+
+
+
 	private String photoUrl;
 
 	private int version;
