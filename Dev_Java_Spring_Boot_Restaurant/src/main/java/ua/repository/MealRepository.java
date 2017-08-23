@@ -20,4 +20,7 @@ public interface MealRepository extends JpaNameRepository<Meal>{
 	@Query("SELECT c.name FROM Cuisine c")
 	List<String> findAllCuisines();
 
+	@Query("SELECT m FROM Meal m JOIN FETCH m.cuisine WHERE m.id=?1")
+	Meal findOneRequest(Integer id);
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,69 +13,50 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<form action="/admin/meal" method="POST">
-				
-<!-- 					<div class="form-check row"> -->
-<!-- 					<label class="col-2 col-form-label">Components:</label> -->
-<!-- 					<div class="col-10"> -->
-<%-- 					<c:forEach var="component" items="${components}"> --%>
-<!-- 									<label class="form-check-label"> -->
-<%--       									<input type="checkbox" class="form-check-input" value="idComponents" name="idComponents"> ${component.ingredient} ${component.amount} ${component.ms} --%>
-<!--     								</label> -->
-<%-- 					</c:forEach> --%>
-<!-- 					</div> -->
-<!--   					</div> -->
-
+				<form:form action="/admin/meal" method="POST" modelAttribute="meal">
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="component">Components:</label>
 						<div class="col-10">
-							<select class="form-control" id="component" name="idComponents" multiple>
-								<c:forEach var="component" items="${components}">
-									<option value="${component.id}">${component.ingredient} ${component.amount} ${component.ms}</option>
-								</c:forEach>
-							</select>
+							<form:select class="form-control" id="component" path="components" items="${components}" multiple="multiple" itemValue="id"/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="cuisine">Cuisine:</label>
 						<div class="col-10">
-							<select class="form-control" id="cuisine" name="cuisine">
-								<c:forEach var="cuisine" items="${cuisines}">
-									<option value="${cuisine}">${cuisine}</option>
-								</c:forEach>
-							</select>
+							<form:select class="form-control" id="cuisine" path="cuisine" items="${cuisines}"/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="name">Name:</label>
 						<div class="col-10">
-							<input class="form-control" id="name" name="name">
+							<form:input class="form-control" id="name" path="name"/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="fullDescription">Full description:</label>
 						<div class="col-10">
-						 <textarea class="form-control form-rounded" rows="3" id="fullDescription" name="fullDescription">Full Description in 3 rows</textarea>
+						 <form:textarea class="form-control form-rounded" rows="3" id="fullDescription" path="fullDescription" placeholder="Full Descroption in 3 rows"/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="price">Price:</label>
 						<div class="col-10">
-							<input class="form-control" id="price" name="price">
+							<form:input class="form-control" id="price" path="price"/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="weight">Weight:</label>
 						<div class="col-10">
-							<input class="form-control" id="weight" name="weight">
+							<form:input class="form-control" id="weight" path="weight"/>
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-8 mr-auto">
-							<button class="btn btn-sm btn-outline-success">Save</button>
-						</div>
+							<div class="col-10 ml-auto">
+								<button class="btn btn-sm btn-outline-success">Save</button>
+								<a href="/admin/meal/cancel" class="btn btn-sm btn-outline-warning">Cancel</a>
+							</div>
 					</div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 		<div class="row">
@@ -87,7 +69,6 @@
 						<th class="text-center">Cuisine</th>
 						<th class="text-center">Price</th>
 						<th class="text-center">Weight</th>
-						<th class="text-center">Components</th>
 						<th class="text-center">Options</th>
 					</tr>
 					<c:forEach var="meal" items="${meals}">
@@ -98,11 +79,6 @@
 							<td>${meal.cuisine}</td>
 							<td>${meal.price}</td>
 							<td>${meal.weight}</td>
-							<td>
-							<c:forEach var="meal" items="${meals}">
-									<label class="form-check-label"> ${meal.components}</label>
-    						</c:forEach>
-							</td>
 							<td class="text-center">
 								<a href="/admin/meal/update/${meal.id}" class="btn btn-outline-warning btn-sm">Update</a>
 								<a href="/admin/meal/delete/${meal.id}" class="btn btn-outline-danger btn-sm">Delete</a>
