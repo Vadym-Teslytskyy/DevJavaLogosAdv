@@ -43,6 +43,7 @@ public class MealServiceImpl implements MealService{
 	@Override
 	public void save(MealRequest request) {
 		Meal meal = new Meal();
+		meal.setId(request.getId());
 		meal.setName(request.getName());
 		meal.setFullDescription(request.getFullDescription());
 		meal.setPrice(new BigDecimal(request.getPrice()));
@@ -56,6 +57,7 @@ public class MealServiceImpl implements MealService{
 	public MealRequest findOneRequest(Integer id) {
 		Meal meal = repository.findOneRequest(id);
 		MealRequest request = new MealRequest();
+		request.setId(meal.getId());
 		request.setName(meal.getName());
 		request.setFullDescription(meal.getFullDescription());
 		request.setPrice(String.valueOf((meal.getPrice())));
