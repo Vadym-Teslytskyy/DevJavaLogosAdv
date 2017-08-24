@@ -20,7 +20,7 @@ public class Meal extends AbstractEntityName{
 	}
 	
 
-	public Meal(String name, String fullDescription, BigDecimal price, Integer weight, Cuisine cuisine,
+	public Meal(String name, String fullDescription, BigDecimal price, int weight, Cuisine cuisine,
 			List<Component> components) {
 		super(name);
 		this.fullDescription = fullDescription;
@@ -45,7 +45,7 @@ public class Meal extends AbstractEntityName{
 	
 	private BigDecimal price;
 	
-	private Integer weight;
+	private int weight;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Cuisine cuisine;

@@ -33,8 +33,8 @@ public class AdminMealController {
 	
 	@GetMapping
 	public String show(Model model){
-		model.addAttribute("components", service.findAllComponents());
 		model.addAttribute("cuisines", service.findAllCuisines());
+		model.addAttribute("components", service.findAllComponents());
 		model.addAttribute("meals", service.findAllView());
 		return "meal";
 	}
