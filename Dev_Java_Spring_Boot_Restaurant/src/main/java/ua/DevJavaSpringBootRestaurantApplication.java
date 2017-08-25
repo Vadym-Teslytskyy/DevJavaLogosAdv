@@ -13,5 +13,7 @@ public class DevJavaSpringBootRestaurantApplication {
 		ConfigurableApplicationContext run = SpringApplication.run(DevJavaSpringBootRestaurantApplication.class, args);
 		ComponentRepository repository = run.getBean(ComponentRepository.class);
 		System.out.println(repository.findAll());
+		
 	}
+
 }
