@@ -12,6 +12,11 @@
 	<body>
 	<div class="container">
 		<div class="row">
+			<c:if test="${param.fail}">
+			<div class="alert alert-danger" role="alert">
+  				<strong>Some error!</strong> Fail to authorize.
+			</div>
+			</c:if>
 			<div class="col-12">
 				<form:form action="/login" method="POST">
 					<div class="form-group row">
