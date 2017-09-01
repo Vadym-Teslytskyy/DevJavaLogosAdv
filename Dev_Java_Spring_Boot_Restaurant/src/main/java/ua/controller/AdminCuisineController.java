@@ -3,6 +3,8 @@ package ua.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import ua.entity.Cuisine;
 import ua.entity.Ingredient;
 import ua.service.CusineService;
+import ua.validation.flag.CuisineFlag;
 
 @Controller
 @RequestMapping("/admin/cuisine")
@@ -46,7 +49,8 @@ public class AdminCuisineController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("cuisine") Cuisine cuisine, SessionStatus status){
+	public String save(@ModelAttribute("cuisine") @Validated(CuisineFlag.class) Cuisine cuisine, BindingResult br, Model model, SessionStatus status){
+		if(br.hasErrors()) return show(model);
 		service.save(cuisine);
 		return cancel(status);
 	}
