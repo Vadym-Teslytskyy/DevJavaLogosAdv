@@ -11,15 +11,17 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 import ua.validation.validator.CuisineUniqueValidatior;
+import ua.validation.validator.MsUniqueValidator;
 
 @Retention(RUNTIME)
 @Target({ FIELD, METHOD })
-@Constraint(validatedBy = CuisineUniqueValidatior.class)
-public @interface UniqueCuisine {
-
+@Constraint(validatedBy = MsUniqueValidator.class)
+public @interface UniqueMs {
+	
 	String message() default "Not unique";
-		
+	
 	Class<?>[] groups() default {};
 	
 	Class<? extends Payload>[] payload() default {};
+
 }
