@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import ua.validation.flag.CuisineFlag;
 import ua.validation.flag.IngredientFlag;
 
 @Entity

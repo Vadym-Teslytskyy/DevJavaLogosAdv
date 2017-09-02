@@ -20,7 +20,7 @@
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<form:form action="/logout">
-			<button type="button" class="btn btn-secondary">Log out</button>
+			<button>Logout</button>
 		</form:form>
 	</sec:authorize>
 </body>

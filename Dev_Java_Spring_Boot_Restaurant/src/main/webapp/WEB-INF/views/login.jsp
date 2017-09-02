@@ -13,7 +13,7 @@
 	<div class="container">
 		<div class="row">
 			<c:if test="${param.fail}">
-			<div class="alert alert-danger" role="alert">
+			<div class="alert alert-danger ml-auto col-12" role="alert">
   				<strong>Some error!</strong> Fail to authorize.
 			</div>
 			</c:if>
