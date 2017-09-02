@@ -1,7 +1,17 @@
 package ua.service;
 
-import ua.entity.Place;
+import java.util.List;
 
-public interface PlaceService extends CrudService<Place, Integer>{
+import ua.model.request.PlaceRequest;
+import ua.model.view.PlaceView;
 
+public interface PlaceService {
+
+	List<PlaceView> findAllView();
+	
+	void save(PlaceRequest request);
+	
+	PlaceRequest findOneRequest(Integer id);
+	
+	void delete(Integer id);
 }

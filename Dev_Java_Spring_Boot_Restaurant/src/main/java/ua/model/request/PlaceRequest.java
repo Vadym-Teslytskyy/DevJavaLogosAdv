@@ -1,11 +1,15 @@
 package ua.model.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class PlaceRequest {
 	
 	private Integer id;
 	
+	@NotBlank(message="Поле не може бути пустим")
 	private String countofPeople;
 	
+	@NotBlank(message="Поле не може бути пустим")
 	private String number;
 	
 	private String isFree;
