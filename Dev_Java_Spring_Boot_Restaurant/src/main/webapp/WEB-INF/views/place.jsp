@@ -39,7 +39,7 @@
 					<div class="form-group row">
 							<div class="col-10 ml-auto">
 								<button class="btn btn-sm btn-outline-success">Save</button>
-								<a href="/admin/mst/cancel" class="btn btn-sm btn-outline-warning">Cancel</a>
+								<a href="/admin/place/cancel" class="btn btn-sm btn-outline-warning">Cancel</a>
 							</div>
 						</div>
 				</form:form>
