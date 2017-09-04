@@ -1,5 +1,7 @@
 package ua.model.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import ua.entity.Ingredient;
 import ua.entity.Ms;
 
@@ -9,6 +11,7 @@ public class ComponentRequest {
 	
 	private Ingredient ingredient;
 	
+	@NotBlank(message="Поле не може бути пустим")
 	private String amount;
 	
 	private Ms ms;

@@ -2,20 +2,30 @@ package ua.model.request;
 
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import ua.entity.Component;
 import ua.entity.Cuisine;
-import ua.model.view.ComponentView;
+import ua.validation.annotation.UniqueMeal;
 
 public class MealRequest {
 	
 	private Integer id;
 	
+	@UniqueMeal(message="Така страва вже існує")
+	@NotBlank(message="Поле не може бути пустим")
+	@Pattern(regexp = "^[A-Z][A-Za-z0-9]+| *$", message="Назва має починатись з великої букви")
 	private String name;
 	
+	@NotBlank(message="Поле не може бути пустим")
 	private String fullDescription;
 	
+	@NotBlank(message="Поле не може бути пустим")
 	private String price;
 
+	@NotBlank(message="Поле не може бути пустим")
 	private String weight;
 	
 	private Cuisine cuisine;

@@ -47,7 +47,7 @@ public class AdminPlaceController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("place") @Valid PlaceRequest request, SessionStatus status, BindingResult br, Model model){
+	public String save(@ModelAttribute("place") @Valid PlaceRequest request, BindingResult br, Model model, SessionStatus status){
 		if(br.hasErrors()) return show(model);
 		service.save(request);
 		return cancel(status);

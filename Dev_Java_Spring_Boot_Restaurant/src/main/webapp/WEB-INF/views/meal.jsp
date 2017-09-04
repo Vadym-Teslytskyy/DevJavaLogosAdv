@@ -26,10 +26,20 @@
 							<form:select class="form-control" id="cuisine" path="cuisine" items="${cuisines}"/>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-10 ml-auto" style="color:red;">
+							<form:errors path="name"/>
+						</div>
+					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="name">Name:</label>
 						<div class="col-10">
 							<form:input class="form-control" id="name" path="name"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-10 ml-auto" style="color:red;">
+							<form:errors path="fullDescription"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -38,10 +48,20 @@
 						 <form:textarea class="form-control form-rounded" rows="3" id="fullDescription" path="fullDescription" placeholder="Full Descroption in 3 rows"/>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-10 ml-auto" style="color:red;">
+							<form:errors path="price"/>
+						</div>
+					</div>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="price">Price:</label>
 						<div class="col-10">
 							<form:input class="form-control" id="price" path="price"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-10 ml-auto" style="color:red;">
+							<form:errors path="weight"/>
 						</div>
 					</div>
 					<div class="form-group row">

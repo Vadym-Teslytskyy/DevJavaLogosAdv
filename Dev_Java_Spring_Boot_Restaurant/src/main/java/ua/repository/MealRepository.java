@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
-import ua.entity.Component;
 import ua.entity.Meal;
 import ua.model.view.ComponentView;
 import ua.model.view.MealView;
@@ -22,5 +21,5 @@ public interface MealRepository extends JpaNameRepository<Meal>{
 
 	@Query("SELECT m FROM Meal m JOIN FETCH m.cuisine WHERE m.id=?1")
 	Meal findOneRequest(Integer id);
-
+	
 }

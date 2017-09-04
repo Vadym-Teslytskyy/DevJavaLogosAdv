@@ -49,7 +49,8 @@ public class AdminComponentController {
 		}
 		
 		@PostMapping
-		public String save(@ModelAttribute("component") ComponentRequest request, SessionStatus status) {
+		public String save(@ModelAttribute("component") @Valid ComponentRequest request, BindingResult br, Model model, SessionStatus status) {
+			if (br.hasErrors()) return show(model);
 			service.save(request);
 			return cancel(status);
 		}

@@ -10,17 +10,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import ua.validation.validator.MsUniqueValidator;
+import ua.validation.validator.MealUniqueValidator;
 
 @Retention(RUNTIME)
 @Target({ FIELD, METHOD })
-@Constraint(validatedBy = MsUniqueValidator.class)
-public @interface UniqueMs {
+@Constraint(validatedBy = MealUniqueValidator.class)
+public @interface UniqueMeal {
 	
 	String message() default "Not unique";
 	
 	Class<?>[] groups() default {};
 	
 	Class<? extends Payload>[] payload() default {};
-
 }

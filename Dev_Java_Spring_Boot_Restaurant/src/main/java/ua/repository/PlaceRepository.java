@@ -15,4 +15,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer>{
 
 	@Query("SELECT p FROM Place p WHERE p.id=?1")
 	Place findOneRequest(Integer id);
+	
+	@Query("SELECT p FROM Place p WHERE p.number=?1")
+	Place findByNumber(int number);
 }

@@ -22,5 +22,4 @@ public interface ComponentRepository extends JpaRepository<Component, Integer>{
 	@Query("SELECT c FROM Component c JOIN FETCH c.ingredient JOIN FETCH c.ms WHERE c.id=?1")
 	Component findOneRequest(Integer id);
 	
-
 }
