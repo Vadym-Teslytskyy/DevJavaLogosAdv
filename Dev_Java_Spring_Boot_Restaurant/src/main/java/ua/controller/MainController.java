@@ -1,7 +1,5 @@
 package ua.controller;
 
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +10,14 @@ import ua.entity.User;
 public class MainController {
 	
 	@GetMapping("/")
-	public String index(Model model, Principal principal, SomeUserClass sClass) {
-		if(principal!=null){
-			model.addAttribute("message", "Hello "+principal.getName());
+	public String index(Model model, User user) {
+		if(user!=null){
+			model.addAttribute("message", "Hello "+user.getEmail());
+			System.out.println(user.getPassword());
+			System.out.println(user.getRole());
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
-		System.out.println(sClass.getUser());
-		
 		return "index";
 	}
 	
@@ -28,17 +26,4 @@ public class MainController {
 		return "admin";
 	}
 	
-	static class SomeUserClass {
-		private User user;
-
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
-		
-	}
-
 }
