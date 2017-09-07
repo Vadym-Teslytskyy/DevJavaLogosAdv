@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import ua.entity.Component;
 import ua.entity.Meal;
 import ua.model.request.MealRequest;
 import ua.model.view.ComponentView;
 import ua.model.view.MealView;
-import ua.repository.ComponentRepository;
 import ua.repository.MealRepository;
 import ua.service.MealService;
 
@@ -70,6 +70,11 @@ public class MealServiceImpl implements MealService{
 	@Override
 	public void delete(Integer id) {
 		repository.delete(id);
+	}
+
+	@Override
+	public Page<MealView> findAllView(Pageable pageable) {
+		return repository.findAllView(pageable);
 	}
 
 }

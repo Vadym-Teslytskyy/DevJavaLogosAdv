@@ -2,6 +2,7 @@ package ua.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +23,7 @@ public interface ComponentRepository extends JpaRepository<Component, Integer>{
 	
 	@Query(value = "SELECT new ua.model.view.ComponentView(c.id, i.name, c.amount, ms.name) FROM Component c JOIN c.ingredient i JOIN c.ms ms",
 						countQuery="SELECT count(c.id) FROM Component c JOIN c.ingredient i JOIN c.ms ms")
-	List<ComponentView> findAllView(Pageable pageable);
+	Page<ComponentView> findAllView(Pageable pageable);
 
 	@Query("SELECT c FROM Component c JOIN FETCH c.ingredient JOIN FETCH c.ms WHERE c.id=?1")
 	Component findOneRequest(Integer id);

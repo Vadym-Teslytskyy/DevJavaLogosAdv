@@ -1,6 +1,8 @@
 package ua.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ua.entity.Ms;
@@ -9,10 +11,18 @@ import ua.service.MsService;
 
 @Service
 public class MsServiceImpl extends CrudServiceImpl<Ms, Integer> implements MsService{
-
+	
+	private final MsRepository repository;
+	
 	@Autowired
 	public MsServiceImpl(MsRepository repository) {
 		super(repository);
+		this.repository=repository;
+	}
+
+	@Override
+	public Page<Ms> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 }

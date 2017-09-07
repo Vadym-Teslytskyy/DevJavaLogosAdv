@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="custom" uri="/WEB-INF/tags/implicit.tld"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
 						<th class="text-center">Is Free</th>
 						<th class="text-center">Options</th>
 					</tr>
-					<c:forEach var="place" items="${places}">
+					<c:forEach var="place" items="${places.content}">
 						<tr>
 							<td>${place.number}</td>
 							<td>${place.countofPeople}</td>
@@ -71,6 +72,11 @@
 		<div class="row">
 			<div class="col-12">
 				<a href="/admin">Back to admin page</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<custom:pageable page="${places}"/>
 			</div>
 		</div>
 	</div>

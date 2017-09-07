@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ua.entity.Component;
@@ -61,6 +63,11 @@ public class ComponentServiceImpl  implements ComponentService{
 	@Override
 	public void delete(Integer id) {
 		repository.delete(id);
+	}
+
+	@Override
+	public Page<ComponentView> findAllView(Pageable pageable) {
+		return repository.findAllView(pageable);
 	}
 
 }

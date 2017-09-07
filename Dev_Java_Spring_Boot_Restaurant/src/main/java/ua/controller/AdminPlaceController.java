@@ -3,6 +3,8 @@ package ua.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,8 +37,8 @@ public class AdminPlaceController {
 	}
 	
 	@GetMapping
-	public String show(Model model) {
-		model.addAttribute("places", service.findAllView());
+	public String show(Model model, @PageableDefault Pageable pageable) {
+		model.addAttribute("places", service.findAllView(pageable));
 		return "place";
 	}
 	
@@ -47,16 +49,16 @@ public class AdminPlaceController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("place") @Valid PlaceRequest request, BindingResult br, Model model, SessionStatus status){
-		if(br.hasErrors()) return show(model);
+	public String save(@ModelAttribute("place") @Valid PlaceRequest request, BindingResult br, Model model, SessionStatus status, Pageable pageable){
+		if(br.hasErrors()) return show(model,pageable);
 		service.save(request);
 		return cancel(status);
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable Integer id, Model model){
+	public String update(@PathVariable Integer id, Model model, Pageable pageable){
 		model.addAttribute("place", service.findOneRequest(id));
-		return show(model);
+		return show(model,pageable);
 	}
 	
 	@GetMapping("/cancel")

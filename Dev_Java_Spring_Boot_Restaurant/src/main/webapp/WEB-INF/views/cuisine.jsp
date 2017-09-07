@@ -42,7 +42,7 @@
 						<th class="text-center">Name</th>
 						<th class="text-center">Options</th>
 					</tr>
-					<c:forEach var="cuisine" items="${cuisines.comtent}">
+					<c:forEach var="cuisine" items="${cuisines.content}">
 						<tr>
 							<td>${cuisine.name}</td>
 							<td class="text-center">

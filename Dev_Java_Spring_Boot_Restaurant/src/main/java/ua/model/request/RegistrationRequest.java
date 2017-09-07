@@ -4,7 +4,9 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import ua.validation.annotation.PasswordsEqualConstraint;
 
+@PasswordsEqualConstraint(message = "Паролі не однакові")
 public class RegistrationRequest {
 	
 	@NotBlank(message="Поле не можебути пустим")
