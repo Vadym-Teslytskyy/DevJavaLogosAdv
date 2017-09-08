@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import ua.entity.Place;
 import ua.model.view.PlaceView;
 
-public interface PlaceRepository extends JpaRepository<Place, Integer>{
+public interface PlaceRepository extends JpaRepository<Place, Integer>, JpaSpecificationExecutor<PlaceView>{
 	
 	@Query("SELECT new ua.model.view.PlaceView(	p.id, p.countofPeople, p.number, p.isFree) FROM Place p")
 	List<PlaceView> findAllView();
