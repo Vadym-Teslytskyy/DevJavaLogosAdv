@@ -12,9 +12,36 @@
 </head>
 <body>
 	<div class="container">
+		<div class="row">
+		<div class="col-4">
+				<form:form action="/admin/cuisine" method="GET" modelAttribute="filter">
+					<div class="form-group row">
+						<div class="col-12">
+							<form:input class="form-control" path="search" placeholder="Search"/>
+						</div>
+					</div>
+				</form:form>
+			</div>
+			<div class="col-8">
+				<div class="row">
+					<div class="col-6 text-center">
+							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
+							</button>
+							<div class="dropdown-menu">
+								<custom:sort innerHtml="Name asc" paramValue="name"/>
+								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+							</div>
+					</div>
+					<div class="col-6 text-center">
+						<custom:size posibleSizes="1,2,5,10" size="${cuisines.size}" />
+					</div>
+				</div>
+			</div>
+	</div>
 	<div class="row">
 			<div class="col-12">
 				<form:form action="/admin/cuisine" method="POST" modelAttribute="cuisine">
+				<custom:hiddenInputs excludeParams="name, _csrf"/>
 					<div class="row">
 						<div class="col-10 ml-auto" style="color:red;">
 							<form:errors path="name"/>
@@ -29,7 +56,7 @@
 						<div class="form-group row">
 							<div class="col-10 ml-auto">
 								<button class="btn btn-sm btn-outline-success">Save</button>
-								<a href="/admin/cuisine/cancel" class="btn btn-sm btn-outline-warning">Cancel</a>
+								<a href="/admin/cuisine/cancel<custom:allParams/>" class="btn btn-sm btn-outline-warning">Cancel</a>
 							</div>
 						</div>
 				</form:form>
@@ -46,8 +73,8 @@
 						<tr>
 							<td>${cuisine.name}</td>
 							<td class="text-center">
-								<a href="/admin/cuisine/update/${cuisine.id}" class="btn btn-outline-warning btn-sm">Update</a>
-								<a href="/admin/cuisine/delete/${cuisine.id}" class="btn btn-outline-danger btn-sm">Delete</a>
+								<a href="/admin/cuisine/update/${cuisine.id}<custom:allParams/>" class="btn btn-outline-warning btn-sm">Update</a>
+								<a href="/admin/cuisine/delete/${cuisine.id}<custom:allParams/>" class="btn btn-outline-danger btn-sm">Delete</a>
 							</td>
 						</tr>
 					</c:forEach>
