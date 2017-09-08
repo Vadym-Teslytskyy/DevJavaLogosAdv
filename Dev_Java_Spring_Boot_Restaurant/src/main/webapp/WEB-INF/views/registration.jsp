@@ -39,6 +39,7 @@
 					<div class="row">
 						<div class="col-10 ml-auto" style="color:red;">
 							<form:errors path="repeatPassword"/>
+							<form:errors path="${registrationRequest}"/>
 						</div>
 					</div>
 					<div class="form-group row">

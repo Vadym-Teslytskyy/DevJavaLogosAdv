@@ -6,17 +6,17 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import ua.validation.annotation.PasswordsEqualConstraint;
 
-@PasswordsEqualConstraint(message = "Паролі не однакові")
+@PasswordsEqualConstraint(message="Пароль не однаковий!")
 public class RegistrationRequest {
 	
 	@NotBlank(message="Поле не можебути пустим")
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Некоректний email")
 	private String email;
 	
-	@NotBlank(message="Поле не можебути пустим")
+	@NotBlank(message="Поле не може бути пустим")
 	private String password;
 	
-	@NotBlank(message="Поле не можебути пустим")
+	@NotBlank(message="Поле не може бути пустим")
 	private String repeatPassword;
 
 	public String getEmail() {

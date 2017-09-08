@@ -13,7 +13,7 @@ import ua.validation.validator.PasswordsEqualConstraintValidator;
 @Constraint(validatedBy = PasswordsEqualConstraintValidator.class)
 public @interface PasswordsEqualConstraint {
 	
-	String message() default "Not unique";
+	String message() default "Password not equal";
 
 	Class<?>[] groups() default {};
 
