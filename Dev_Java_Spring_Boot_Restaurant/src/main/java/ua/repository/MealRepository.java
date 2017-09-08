@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import ua.entity.Meal;
 import ua.model.view.ComponentView;
 import ua.model.view.MealView;
 
-public interface MealRepository extends JpaNameRepository<Meal>{
+public interface MealRepository extends JpaNameRepository<Meal>, JpaSpecificationExecutor<MealView>{
 	
 	@Query("SELECT new ua.model.view.ComponentView(c.id, i.name, c.amount, ms.name) FROM Component c JOIN c.ingredient i JOIN c.ms ms")
 	List<ComponentView> findAllComponents();

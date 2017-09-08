@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import ua.model.filter.SimpleFilter;
 import ua.model.request.MealRequest;
 import ua.model.view.ComponentView;
 import ua.model.view.MealView;
@@ -24,5 +25,7 @@ public interface MealService {
 	void delete(Integer id);
 
 	Page<MealView> findAllView(Pageable pageable);
+
+	Page<MealView> findAllView(Pageable pageable, SimpleFilter filter);
 	
 }

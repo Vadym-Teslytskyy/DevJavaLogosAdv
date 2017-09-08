@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import ua.entity.Meal;
+import ua.model.filter.SimpleFilter;
 import ua.model.request.MealRequest;
 import ua.model.view.ComponentView;
 import ua.model.view.MealView;
@@ -75,6 +77,18 @@ public class MealServiceImpl implements MealService{
 	@Override
 	public Page<MealView> findAllView(Pageable pageable) {
 		return repository.findAllView(pageable);
+	}
+
+	@Override
+	public Page<MealView> findAllView(Pageable pageable, SimpleFilter filter) {
+		return repository.findAll(filter(filter), pageable);
+	}
+	
+	private Specification<MealView> filter(SimpleFilter filter){
+		return (root, query, cb) -> {
+			if(filter.getSearch().isEmpty()) return null;
+			return cb.like(root.get("name"), filter.getSearch()+"%");
+		};
 	}
 
 }
