@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
+		<div class="row mt-2">
 		<div class="col-4">
 				<form:form action="/admin/place" method="GET" modelAttribute="filter">
 					<div class="form-group row">
