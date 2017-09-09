@@ -47,7 +47,10 @@ private final IngredientService service;
 	@GetMapping
 	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
 		model.addAttribute("ingredients", service.findAll(pageable,filter));
-		return "ingredient";
+		if(service.findAll(pageable, filter).hasContent()||pageable.getPageNumber()==0){
+			return "ingredient";
+		}else return "redirect:/admin/ingredient"+buildParams(pageable, filter);
+		
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -79,7 +82,8 @@ private final IngredientService service;
 	private String buildParams(Pageable pageable, SimpleFilter filter) {
 				StringBuilder buffer = new StringBuilder();
 				buffer.append("?page=");
-				buffer.append(String.valueOf(pageable.getPageNumber()+1));
+				if(!(service.findAll(pageable, filter).hasContent())) buffer.append(String.valueOf(pageable.getPageNumber()));
+				else buffer.append(String.valueOf(pageable.getPageNumber()+1));
 				buffer.append("&size=");
 				buffer.append(String.valueOf(pageable.getPageSize()));
 				if(pageable.getSort()!=null){
