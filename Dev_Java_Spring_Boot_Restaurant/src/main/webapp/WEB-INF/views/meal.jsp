@@ -127,7 +127,7 @@
 							<td>${meal.name}</td>
 							<td>${meal.rate}</td>
 							<td>${meal.fullDescription}</td>
-							<td>${meal.cuisine}</td>
+							<td>${meal.cuisine.name}</td>
 							<td>${meal.price}</td>
 							<td>${meal.weight}</td>
 							<td class="text-center">

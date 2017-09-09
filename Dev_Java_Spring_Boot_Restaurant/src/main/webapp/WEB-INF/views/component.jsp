@@ -20,7 +20,7 @@
 				<form:form action="/admin/component" method="GET" modelAttribute="filter">
 					<div class="form-group row">
 						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search"/>
+							<form:input class="form-control" path="search" placeholder="Search(equal of amount)"/>
 						</div>
 					</div>
 				</form:form>
@@ -31,8 +31,8 @@
 							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
 							</button>
 							<div class="dropdown-menu">
-								<custom:sort innerHtml="Name asc" paramValue="name"/>
-								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+								<custom:sort innerHtml="Amount asc" paramValue="amount"/>
+								<custom:sort innerHtml="Amount desc" paramValue="amount,desc"/>
 							</div>
 					</div>
 					<div class="col-6 text-center">
@@ -48,6 +48,7 @@
 					<div class="row">
 						<div class="col-10 ml-auto" style="color:red;">
 							<form:errors path="amount"/>
+							<form:errors path="${componentRequest}"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -89,8 +90,8 @@
 					<c:forEach var="component" items="${components.content}">
 						<tr>
 							<td>${component.amount}</td>
-							<td>${component.ms}</td>
-							<td>${component.ingredient}</td>
+							<td>${component.ms.name}</td>
+							<td>${component.ingredient.name}</td>
 							<td class="text-center">
 								<a href="/admin/component/update/${component.id}<custom:allParams/>" class="btn btn-outline-warning btn-sm">Update</a>
 								<a href="/admin/component/delete/${component.id}<custom:allParams/>" class="btn btn-outline-danger btn-sm">Delete</a>

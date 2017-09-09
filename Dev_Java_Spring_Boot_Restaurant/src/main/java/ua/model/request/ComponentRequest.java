@@ -4,7 +4,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import ua.entity.Ingredient;
 import ua.entity.Ms;
+import ua.validation.annotation.UniqueComponent;
 
+@UniqueComponent(message="Такий компонент вже існує")
 public class ComponentRequest {
 	
 	private Integer id;
