@@ -1,7 +1,5 @@
 package ua.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.PlaceRequest;
 import ua.service.PlaceService;
+import ua.validation.flag.PlaceFlag;
 
 @Controller
 @RequestMapping("/admin/place")
@@ -57,7 +57,7 @@ public class AdminPlaceController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("place") @Valid PlaceRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String save(@ModelAttribute("place") @Validated(PlaceFlag.class) PlaceRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
 		if(br.hasErrors()) return show(model,pageable,filter);
 		service.save(request);
 		return cancel(status,pageable,filter);

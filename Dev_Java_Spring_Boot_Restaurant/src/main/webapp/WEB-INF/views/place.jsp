@@ -31,8 +31,8 @@
 							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
 							</button>
 							<div class="dropdown-menu">
-								<custom:sort innerHtml="Name asc" paramValue="name"/>
-								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+								<custom:sort innerHtml="Number asc" paramValue="number"/>
+								<custom:sort innerHtml="Number desc" paramValue="number,desc"/>
 							</div>
 					</div>
 					<div class="col-6 text-center">

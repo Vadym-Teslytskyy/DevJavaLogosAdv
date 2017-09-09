@@ -2,12 +2,6 @@ package ua.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotBlank;
-
-import ua.validation.flag.CuisineFlag;
-import ua.validation.flag.IngredientFlag;
 
 @Entity
 @Table(name="_user")

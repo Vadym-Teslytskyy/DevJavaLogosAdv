@@ -6,9 +6,10 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Index;
 
 @Entity
-@Table(name="place")
+@Table(name="place", indexes= @Index(columnList = "number", unique=true))
 public class Place extends AbstractEntity{
 	
 	public Place() {

@@ -1,15 +1,26 @@
 package ua.model.request;
 
+
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotBlank;
+
+import ua.validation.annotation.UniquePlace;
+import ua.validation.flag.PlaceFlag;
 
 public class PlaceRequest {
 	
 	private Integer id;
 	
-	@NotBlank(message="Поле не може бути пустим")
+	@NotBlank(message="Поле не може бути пустим", groups = { PlaceFlag.class })
+	@Pattern(regexp = "^[1-9][0-9]*| *$", message = "Поле не може бути нулем або символом", groups = {
+			PlaceFlag.class })
 	private String countofPeople;
 	
-	@NotBlank(message="Поле не може бути пустим")
+	@UniquePlace(message="Такий столик вже існує", groups = PlaceFlag.class)
+	@NotBlank(message="Поле не може бути пустим", groups = { PlaceFlag.class })
+	@Pattern(regexp = "^[1-9][0-9]*| *$", message = "Поле не може бути нулем або символом", groups = {
+			PlaceFlag.class })
 	private String number;
 	
 	private String isFree;

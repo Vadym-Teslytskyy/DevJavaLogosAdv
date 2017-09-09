@@ -69,7 +69,7 @@ public class PlaceServiceImpl implements PlaceService{
 	private Specification<PlaceView> filter(SimpleFilter filter){
 		return (root, query, cb) -> {
 			if(filter.getSearch().isEmpty()) return null;
-			return cb.like(root.get("name"), filter.getSearch()+"%");
+			return cb.equal(root.get("number"), filter.getSearch());
 		};
 	}
 
