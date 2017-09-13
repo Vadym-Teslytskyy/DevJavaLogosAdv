@@ -14,17 +14,65 @@
 <title>Meal</title>
 </head>
 <body>
-	<div class="container">
-		<div class="row mt-2">
-		<div class="col-4">
-				<form:form action="/admin/meal" method="GET" modelAttribute="filter">
+<div class="container">
+	<div class="row mt-2">
+		<div class="col-12">
+			<h3>Filtering</h3>
+		</div>
+	</div>
+		<div class="row">
+			<div class="col-12">
+				<form:form action="/admin/meal" method="GET" modelAttribute="mealFilter">
 					<div class="form-group row">
 						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search"/>
+							<form:input path="search" class="form-control" placeholder="Search"/>
 						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-6">
+							<form:input path="minRate" class="form-control" placeholder="Min rate"/>
+						</div>
+						<div class="col-6">
+							<form:input path="maxRate" class="form-control" placeholder="Max rate"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-6">
+							<form:input path="minPrice" class="form-control" placeholder="Min price"/>
+						</div>
+						<div class="col-6">
+							<form:input path="maxPrice" class="form-control" placeholder="Max prcice"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-6">
+							<form:input path="minWeight" class="form-control" placeholder="Min wieght"/>
+						</div>
+						<div class="col-6">
+							<form:input path="maxWeight" class="form-control" placeholder="Max wieght"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-12">
+							<form:checkboxes items="${cuisines}" path="cuisinesIds" element="div" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-12">
+							<form:checkboxes items="${ingredients}" path="ingredientIds" element="div" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-12">
+        					<button type="submit" class="btn btn-outline-success btn-sm">Search</button>
+      					</div>
 					</div>
 				</form:form>
 			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row mt-2">
 			<div class="col-8">
 				<div class="row">
 					<div class="col-6 text-center">
@@ -126,10 +174,10 @@
 						<tr>
 							<td>${meal.name}</td>
 							<td>${meal.rate}</td>
-							<td>${meal.fullDescription}</td>
+							<%-- <td>${meal.fullDescription}</td>
 							<td>${meal.cuisine.name}</td>
 							<td>${meal.price}</td>
-							<td>${meal.weight}</td>
+							<td>${meal.weight}</td> --%>
 							<td class="text-center">
 								<a href="/admin/meal/update/${meal.id}<custom:allParams/>" class="btn btn-outline-warning btn-sm">Update</a>
 								<a href="/admin/meal/delete/${meal.id}<custom:allParams/>" class="btn btn-outline-danger btn-sm">Delete</a>

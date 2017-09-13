@@ -16,8 +16,6 @@ public class MealIndexView {
 	
 	private String shortDescription;
 	
-	
-
 	public MealIndexView(Integer id, String photoUrl, int version, BigDecimal rate, String name,
 			String shortDescription) {
 		this.id = id;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import ua.model.filter.MealFilter;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.MealRequest;
 import ua.service.MealService;
@@ -28,6 +29,7 @@ import ua.service.MealService;
 public class AdminMealController {
 	
 	private final MealService service;
+	
 	
 	@Autowired
 	public AdminMealController(MealService service) {
@@ -44,40 +46,46 @@ public class AdminMealController {
 		return new SimpleFilter();
 	}
 	
+	@ModelAttribute("mealFilter")
+	public MealFilter getMealFilter() {
+		return new MealFilter();
+	}
+	
 	@GetMapping
-	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
 		model.addAttribute("cuisines", service.findAllCuisines());
 		model.addAttribute("components", service.findAllComponents());
-		model.addAttribute("meals", service.findAllView(pageable,filter));
+		model.addAttribute("ingredients", service.findAllIngredients());
+		model.addAttribute("meals", service.findAll(filter, pageable));
 		return "meal";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable Integer id, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
+	public String delete(@PathVariable Integer id, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter) {
 		service.delete(id);
 		return "redirect:/admin/meal"+buildParams(pageable, filter);
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
+	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter) {
 		if(br.hasErrors()) return show(model, pageable, filter);
 		service.save(request);
 		return cancel(status, pageable, filter);
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
 		model.addAttribute("meal", service.findOneRequest(id));
 		return show(model, pageable, filter);
 	}
 	
 	@GetMapping("/cancel")
-	public String cancel(SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String cancel(SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
 		status.setComplete();
 		return "redirect:/admin/meal"+buildParams(pageable, filter);
 	}
 	
-	private String buildParams(Pageable pageable, SimpleFilter filter) {
+	private String buildParams(Pageable pageable, MealFilter filter) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append("?page=");
 		buffer.append(String.valueOf(pageable.getPageNumber()+1));

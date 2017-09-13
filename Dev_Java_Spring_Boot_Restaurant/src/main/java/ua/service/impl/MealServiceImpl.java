@@ -10,21 +10,27 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import ua.entity.Meal;
+import ua.model.filter.MealFilter;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.MealRequest;
 import ua.model.view.ComponentView;
+import ua.model.view.MealIndexView;
 import ua.model.view.MealView;
 import ua.repository.MealRepository;
+import ua.repository.MealViewRepository;
 import ua.service.MealService;
 
 @Service
 public class MealServiceImpl implements MealService{
 	
 	private final MealRepository repository;
+	
+	private final MealViewRepository mealViewRepository;
 
 	@Autowired
-	public MealServiceImpl(MealRepository repository) {
+	public MealServiceImpl(MealRepository repository, MealViewRepository mealViewRepository) {
 		this.repository = repository;
+		this.mealViewRepository = mealViewRepository;
 	}
 
 	@Override
@@ -89,6 +95,16 @@ public class MealServiceImpl implements MealService{
 			if(filter.getSearch().isEmpty()) return null;
 			return cb.like(root.get("name"), filter.getSearch()+"%");
 		};
+	}
+
+	@Override
+	public List<String> findAllIngredients() {
+		return repository.findAllIngredients();
+	}
+
+	@Override
+	public Page<MealIndexView> findAll(MealFilter filter, Pageable pageable) {
+		return mealViewRepository.findAll(filter, pageable);
 	}
 
 }
