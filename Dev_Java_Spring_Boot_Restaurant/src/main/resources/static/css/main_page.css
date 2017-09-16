@@ -1,0 +1,41 @@
+.header {
+    /*background-color: blue;*/
+}
+
+.meals-container-first-row {
+    margin-top: 1%;
+}
+
+.img-hover>a>img {
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    -webkit-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+}
+
+.img-hover>a>img:hover {
+    border: 5px solid #fff;
+    border-left-color: red;
+    border-right-color: red;
+    box-shadow: 0 0 10px rgba(0,1,1,1);
+    transform:  rotate(360deg);
+    transition-duration: 0.4s;
+}
+.navbar-inverse{
+    border-radius: 0px;
+}
+.footer{
+    background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+    color: #9d9d9d;
+}
+.hover-nav>li>a{
+    color: #9d9d9d;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    -webkit-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+}
+.hover-nav>li>a:hover{
+    transition-duration: 0.4s;
+    box-shadow: 0 0 10px rgba(0,1,1,1);
+}

@@ -12,7 +12,7 @@ public class MainController {
 	@GetMapping("/")
 	public String index(Model model, User user) {
 		if(user!=null){
-			model.addAttribute("message", "Hello "+user.getEmail());
+			model.addAttribute("message", "View profile "+user.getEmail());
 			System.out.println(user.getPassword());
 			System.out.println(user.getRole());
 		}else {
