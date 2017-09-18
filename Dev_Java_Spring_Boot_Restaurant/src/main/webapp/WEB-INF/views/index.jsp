@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="custom" uri="/WEB-INF/tags/implicit.tld"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +33,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto hover-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Meals</a>
+                                <a class="nav-link" href="/meals">Meals</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Ingredients</a>
@@ -100,6 +102,14 @@
             </a>
         </div>
     </div>
+   <%--  <c:forEach var="meal" items="${meals.content}">
+							<h3>${meal.name}</h3>
+							<h4>${meal.rate}</h4>>
+							<td>${meal.fullDescription}</td>
+							<td>${meal.cuisine.name}</td>
+							<td>${meal.price}</td>
+							<td>${meal.weight}</td>
+				</c:forEach> --%>
     <div class="container">
         <div class="row meals-container-first-row">
             <div class="col-sm-4">
@@ -173,7 +183,7 @@
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Meals</a>
+                        <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Ingredients</a>

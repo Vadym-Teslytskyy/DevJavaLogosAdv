@@ -107,4 +107,9 @@ public class MealServiceImpl implements MealService{
 		return mealViewRepository.findAll(filter, pageable);
 	}
 
+	@Override
+	public Page<MealIndexView> findBestofFiveMeals(Pageable pageable) {
+		return mealViewRepository.findBestofFiveMeals(pageable);
+	}
+
 }
