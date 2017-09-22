@@ -42,7 +42,7 @@ public class MealsMenuController {
 	@GetMapping("/cancel")
 	public String cancel(SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
 		status.setComplete();
-		return "redirect:/admin/meal"+buildParams(pageable, filter);
+		return "redirect:/meals"+buildParams(pageable, filter);
 	}
 	
 	private String buildParams(Pageable pageable, MealFilter filter) {
