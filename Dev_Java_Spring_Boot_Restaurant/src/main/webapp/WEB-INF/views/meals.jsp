@@ -47,7 +47,6 @@
                             </li>
                         </ul>
                         <form:form action="/meals" method="GET" modelAttribute="mealFilter" class="form-inline my-2 my-lg-0" >
-                        <custom:hiddenInputs excludeParams="name, _csrf"/>
                             <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form:form>
@@ -100,6 +99,7 @@
 		<div class="row mt-2">
 			<div class="col-12">
 				<form:form action="/meals" method="GET" modelAttribute="mealFilter">
+				<custom:hiddenInputs excludeParams="name, _csrf"/>
 					<div class="form-group row">
 						<div class="col-6">
 							<form:input path="minRate" class="form-control" placeholder="Min rate"/>

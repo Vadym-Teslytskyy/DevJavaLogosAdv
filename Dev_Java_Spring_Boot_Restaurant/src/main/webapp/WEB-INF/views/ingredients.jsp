@@ -43,7 +43,7 @@
                             </li>
                         </ul>
                         <form:form action="/ingredients" method="GET" modelAttribute="filter" class="form-inline my-2 my-lg-0" >
-                        <custom:hiddenInputs excludeParams="name, _csrf"/>
+                        <%-- <custom:hiddenInputs excludeParams="name, _csrf"/> Перенести в форму фільтрації--%>
                             <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form:form>

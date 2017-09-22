@@ -22,7 +22,11 @@ public class PlaceUniqueValidator implements ConstraintValidator<UniquePlace, St
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		return (repository.findByNumber(Integer.valueOf(value)))==null;
+		try {
+			return repository.findByNumber(Integer.valueOf(value))==null;
+		} catch (NumberFormatException e) {
+			return true;
+		}
 	}
 
 }

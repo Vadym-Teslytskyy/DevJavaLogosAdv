@@ -44,7 +44,7 @@
 	<div class="row">
 			<div class="col-12">
 				<form:form action="/admin/place" method="POST" modelAttribute="place">
-				<custom:hiddenInputs excludeParams="name, _csrf"/>
+				<custom:hiddenInputs excludeParams="countofPeople, number, name, _csrf"/>
 					<div class="row">
 						<div class="col-10 ml-auto" style="color:red;">
 							<form:errors path="countofPeople"/>
