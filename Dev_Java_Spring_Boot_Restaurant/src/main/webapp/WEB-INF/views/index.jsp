@@ -102,75 +102,29 @@
             </a>
         </div>
     </div>
-   <%--  <c:forEach var="meal" items="${meals.content}">
-							<h3>${meal.name}</h3>
-							<h4>${meal.rate}</h4>>
-							<td>${meal.fullDescription}</td>
-							<td>${meal.cuisine.name}</td>
-							<td>${meal.price}</td>
-							<td>${meal.weight}</td>
-				</c:forEach> --%>
     <div class="container">
-        <div class="row meals-container-first-row">
-            <div class="col-sm-4">
+    	<div class="row meals-container-first-row">
+    	<c:forEach var="meal" items="${meals}" end="5">
+			<div class="col-sm-4">
                     <div class="img-hover">
-                        <a href="#"><img src="images/meal-1.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
+                        <a href="#"><img src="/slider-images/slider-image-3.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
                     </div>
                     <div class="caption">
-                        <h3>Name of meal</h3>
-                        <h4>Rate</h4>
-                        <p>Short description</p>
+                        <h3>${meal.name}</h3>
+                        <h4>${meal.rate}</h4>
+                        <h5>${meal.price} $</h5>
+                        <p>${meal.shortDescription}</p>
                         <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                        <sec:authorize access="hasRole('ROLE_CLIENT')">
+                             <form:form action="#<%-- /buy(orderIt) --%>">
+								<button class="btn btn-success ml-1">Buy now!</button>
+							</form:form>
+                     </sec:authorize>
                     </div>
             </div>
-            <div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="#"><img src="images/meal-2.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>Name of meal</h3>
-                        <h4>Rate</h4>
-                        <p>Short description</p>
-                        <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                    </div>
-            </div>
-            <div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="#"><img src="images/meal-3.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>Name of meal</h3>
-                        <h4>Rate</h4>
-                        <p>Short description</p>
-                        <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                    </div>
-            </div>
-        </div>
-        <div class="row row-centered">
-            <div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="#"><img src="images/meal-4.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>Name of meal</h3>
-                        <h4>Rate</h4>
-                        <p>Short description</p>
-                        <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                    </div>
-            </div>
-            <div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="#"><img src="images/meal-5.jpeg" alt="..." title="Show more" class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>Name of meal</h3>
-                        <h4>Rate</h4>
-                        <p>Short description</p>
-                        <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                    </div>
-            </div>
-        </div>
-        </div>
+				</c:forEach>
+    	</div>
+    </div> 
          <div class="container-fluid">
         <div class="row footer">
             <div class="col-sm-3">

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Index;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="place", indexes= @Index(columnList = "number", unique=true))
@@ -22,13 +24,14 @@ public class Place extends AbstractEntity{
 		this.isFree = true;
 	}
 
-
-
 	private int countofPeople;
 	
 	private int number;
 	
 	private boolean isFree;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User userWhoReserved;
 	
 	@OneToMany(mappedBy="place")
 	private List<Order> orders = new ArrayList<>();

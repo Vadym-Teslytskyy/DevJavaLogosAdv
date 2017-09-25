@@ -173,6 +173,11 @@
                         <h4>${meal.rate}</h4>
                         <p>${meal.shortDescription}</p>
                         <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                     <sec:authorize access="hasRole('ROLE_CLIENT')">
+                             <form:form action="#<%-- /buy(orderIt) --%>">
+								<button class="btn btn-success ml-1">Buy now!</button>
+							</form:form>
+                     </sec:authorize>
                     </div>
             </div>
 		</c:forEach> 

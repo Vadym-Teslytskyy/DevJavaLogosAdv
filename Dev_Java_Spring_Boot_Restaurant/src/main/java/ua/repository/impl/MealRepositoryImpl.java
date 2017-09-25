@@ -49,20 +49,5 @@ public class MealRepositoryImpl implements MealViewRepository{
 				if(countPredicate!=null) countQuery.where(countPredicate);
 				return PageableExecutionUtils.getPage(content, pageable, ()->em.createQuery(countQuery).getSingleResult());
 	}
-
-
-	@Override
-	public Page<MealIndexView> findBestofFiveMeals(Pageable pageable) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<MealIndexView> cq = cb.createQuery(MealIndexView.class);
-		Root<Meal> root = cq.from(Meal.class);
-		cq.orderBy(cb.asc(root.get("rate")));
-		List<MealIndexView> content = em.createQuery(cq)
-				.setFirstResult(1)
-				.setMaxResults(5)
-				.getResultList();
-		CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-		return PageableExecutionUtils.getPage(content, pageable, ()->em.createQuery(countQuery).getSingleResult());
-	}
 	
 }

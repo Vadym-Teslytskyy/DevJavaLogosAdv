@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import ua.entity.Meal;
 import ua.model.view.ComponentView;
+import ua.model.view.MealIndexView;
 import ua.model.view.MealView;
 
 public interface MealRepository extends JpaNameRepository<Meal>, JpaSpecificationExecutor<MealView>{
@@ -18,6 +19,9 @@ public interface MealRepository extends JpaNameRepository<Meal>, JpaSpecificatio
 
 	@Query("SELECT new ua.model.view.MealView(m.id, m.photoUrl, m.version, m.rate, m.name, m.fullDescription, m.price, m.weight, c.name) FROM Meal m JOIN m.cuisine c")
 	List<MealView> findAllView();
+	
+	@Query("SELECT new ua.model.view.MealIndexView(m.id, m.photoUrl, m.version, m.rate, m.price, m.name, m.shortDescription) FROM Meal m ORDER BY m.rate DESC")
+	List<MealIndexView> find5MealsByRate();
 	
 	@Query(value="SELECT new ua.model.view.MealView(m.id, m.photoUrl, m.version, m.rate, m.name, m.fullDescription, m.price, m.weight, c.name) FROM Meal m JOIN m.cuisine c",
 			countQuery="SELECT count(m.id) FROM Meal m JOIN m.cuisine c")

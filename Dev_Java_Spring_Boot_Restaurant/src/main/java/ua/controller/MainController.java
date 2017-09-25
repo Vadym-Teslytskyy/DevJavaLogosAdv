@@ -19,9 +19,9 @@ public class MainController {
 	public MainController(MealService service) {
 		this.service = service;
 	}
-
+	
 	@GetMapping("/")
-	public String index(Model model, User user) {
+	public String index(Model model, User user, @PageableDefault Pageable pageable) {
 		if(user!=null){
 			model.addAttribute("message", "View profile "+user.getEmail());
 			System.out.println(user.getPassword());
@@ -29,6 +29,7 @@ public class MainController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("meals", service.find5MealsByRate());
 		return "index";
 	}
 	

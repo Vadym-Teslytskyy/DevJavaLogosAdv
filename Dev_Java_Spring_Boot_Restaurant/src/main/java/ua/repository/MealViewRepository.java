@@ -9,6 +9,4 @@ import ua.model.view.MealIndexView;
 public interface MealViewRepository {
 
 	Page<MealIndexView> findAll(MealFilter filter, Pageable pageable);
-	
-	Page<MealIndexView> findBestofFiveMeals(Pageable pageable);
 }

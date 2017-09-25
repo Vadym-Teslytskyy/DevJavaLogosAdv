@@ -47,6 +47,32 @@ public class Meal extends AbstractEntityName{
 	
 	private int weight;
 	
+	private BigDecimal sumOfRate;
+	
+	private int countOfVoted;
+	
+	public BigDecimal getSumOfRate() {
+		return sumOfRate;
+	}
+
+
+	public void setSumOfRate(BigDecimal sumOfRate) {
+		this.sumOfRate = sumOfRate;
+	}
+
+
+	public int getCountOfVoted() {
+		return countOfVoted;
+	}
+
+
+	public void setCountOfVoted(int countOfVoted) {
+		this.countOfVoted = countOfVoted;
+	}
+
+
+
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Cuisine cuisine;
 	
