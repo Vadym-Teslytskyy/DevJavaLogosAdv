@@ -34,7 +34,7 @@ public class MealRepositoryImpl implements MealViewRepository{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MealIndexView> cq = cb.createQuery(MealIndexView.class);
 		Root<Meal> root = cq.from(Meal.class);
-		cq.multiselect(root.get(Meal_.id), root.get(Meal_.photoUrl), root.get(Meal_.version), root.get(Meal_.rate), root.get(Meal_.name), root.get(Meal_.shortDescription));
+		cq.multiselect(root.get(Meal_.id), root.get(Meal_.photoUrl), root.get(Meal_.version), root.get(Meal_.rate), root.get(Meal_.price), root.get(Meal_.name), root.get(Meal_.shortDescription));
 		Predicate predicate = new MealFilterPredicateBuilder(cb, root, filter).toPredicate();
 		if(predicate!=null) cq.where(predicate);
 				cq.orderBy(toOrders(pageable.getSort(), root, cb));

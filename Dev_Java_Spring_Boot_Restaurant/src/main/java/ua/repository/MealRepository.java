@@ -36,4 +36,7 @@ public interface MealRepository extends JpaNameRepository<Meal>, JpaSpecificatio
 	@Query("SELECT m FROM Meal m JOIN FETCH m.cuisine WHERE m.id=?1")
 	Meal findOneRequest(Integer id);
 	
+	@Query("SELECT new ua.model.view.MealView(m.id, m.photoUrl, m.version, m.rate, m.name, m.fullDescription, m.price, m.weight, c.name) FROM Meal m JOIN m.cuisine c WHERE m.id=?1")
+	MealView findViewById(Integer id);
+	
 }

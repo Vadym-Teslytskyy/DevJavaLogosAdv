@@ -35,4 +35,6 @@ public interface MealService {
 	Page<MealIndexView> findAll(MealFilter filter, Pageable pageable);
 	
 	List<MealIndexView> find5MealsByRate();	
+	
+	MealView findById(Integer id);
 }

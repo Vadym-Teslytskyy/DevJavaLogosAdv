@@ -111,6 +111,7 @@
             </div>
         </div>
 	</div>
+	<!-- /Accordion -->
 	</div>
 	<div class="container mt-2">
 		<div class="row">

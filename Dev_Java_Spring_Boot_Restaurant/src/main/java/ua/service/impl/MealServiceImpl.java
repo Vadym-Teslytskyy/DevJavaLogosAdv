@@ -112,5 +112,10 @@ public class MealServiceImpl implements MealService{
 		return repository.find5MealsByRate();
 	}
 
+	@Override
+	public MealView findById(Integer id) {
+		return repository.findViewById(id);
+	}
+
 	
 }
