@@ -2,6 +2,11 @@
     /*background-color: blue;*/
 }
 
+#meal-name{
+	font-family:"Lucida Console", Monaco, monospace;
+	font-style: italic;
+}
+
 .meals-container-first-row {
     margin-top: 1%;
 }

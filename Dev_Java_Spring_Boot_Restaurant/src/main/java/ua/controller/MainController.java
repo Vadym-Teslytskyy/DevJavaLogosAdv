@@ -6,6 +6,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import ua.entity.User;
 import ua.service.MealService;
@@ -33,11 +34,16 @@ public class MainController {
 		return "index";
 	}
 	
-	
-	
 	@GetMapping("/admin")
 	public String admin() {
 		return "admin";
+	}
+	
+	@GetMapping("/meal/{id}")
+	public String mealView(Model model, @PathVariable Integer id){
+		model.addAttribute("components", service.findAllComponents());
+		model.addAttribute("meal", service.findById(id));
+		return "mealView";
 	}
 	
 }

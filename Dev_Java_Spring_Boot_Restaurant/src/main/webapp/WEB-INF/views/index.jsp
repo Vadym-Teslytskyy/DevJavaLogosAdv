@@ -49,22 +49,26 @@
                         <ul class="navbar-nav ml-auto hover-nav">
                             <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
-                                <a class="nav-link" href="/login">Sing in</a>
+                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark">${message}</a>
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                              ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-									<a href="/admin" class="btn btn-dark">Admin</a>
+									<a href="/admin" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
 								</sec:authorize>
                             </li>
                             <li class="nav-item">
                             	<sec:authorize access="isAnonymous()">
-                                	<a class="nav-link" href="/registration">Sing up</a>
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                	</a>
                                 </sec:authorize>
                                 <sec:authorize access="isAuthenticated()">
 									<form:form action="/logout">
-										<button class="btn btn-dark ml-1">Logout</button>
+										<button class="btn btn-dark ml-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+										</button>
 									</form:form>
 								</sec:authorize>
                             </li>
@@ -107,14 +111,14 @@
     	<c:forEach var="meal" items="${meals}" end="5">
 			<div class="col-sm-4">
                     <div class="img-hover">
-                        <a href="#"><img src="/slider-images/slider-image-3.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
+                        <a href="/meal/${meal.id}"><img src="/slider-images/slider-image-3.jpg" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
                     </div>
                     <div class="caption">
                         <h3>${meal.name}</h3>
                         <h4>${meal.rate}</h4>
                         <h5>${meal.price} $</h5>
                         <p>${meal.shortDescription}</p>
-                        <p><a href="#" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                        <p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
                         <sec:authorize access="hasRole('ROLE_CLIENT')">
                              <form:form action="#<%-- /buy(orderIt) --%>">
 								<button class="btn btn-success ml-1">Buy now!</button>
@@ -147,22 +151,26 @@
                     </li>
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
-                                <a class="nav-link" href="/login">Sing in</a>
+                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#">${message}</a>
+                             <a href="#"><i class="fa fa-user" aria-hidden="true"></i>
+                              ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-									<a href="/admin" class="btn btn-dark mt-1">Admin</a>
+									<a href="/admin" class="btn btn-dark mt-1"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
 								</sec:authorize>
                             </li>
                             <li class="nav-item">
                             	<sec:authorize access="isAnonymous()">
-                                	<a class="nav-link" href="/registration">Sing up</a>
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                	</a>
                                 </sec:authorize>
                                 <sec:authorize access="isAuthenticated()">
 									<form:form action="/logout">
-										<button class="btn btn-dark mt-1">Logout</button>
+										<button class="btn btn-dark mt-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+										</button>
 									</form:form>
 								</sec:authorize>
                             </li>
