@@ -116,7 +116,7 @@
 	<div class="container mt-2">
 		<div class="row">
 			<div class="col-12">
-				<form:form action="/admin/meal" method="POST" modelAttribute="meal">
+				<form:form action="/admin/meal" method="POST" modelAttribute="meal" enctype="multipart/form-data">
 				<custom:hiddenInputs excludeParams="name, _csrf"/>
 					<div class="form-group row">
 						<label class="col-2 col-form-label" for="component">Components:</label>
@@ -175,6 +175,12 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-2 col-form-label" for="file">Photo:</label>
+						<div class="col-10">
+							<input name="file" type="file">
+						</div>
+					</div>
+					<div class="form-group row">
 							<div class="col-10 ml-auto">
 								<button class="btn btn-sm btn-outline-success">Save</button>
 								<a href="/admin/meal/cancel<custom:allParams/>" class="btn btn-sm btn-outline-warning">Cancel</a>
@@ -189,20 +195,18 @@
 					<tr>
 						<th class="text-center">Name</th>
 						<th class="text-center">Rate</th>
-						<th class="text-center">Full Description</th>
-						<th class="text-center">Cuisine</th>
 						<th class="text-center">Price</th>
-						<th class="text-center">Weight</th>
+						<th class="text-center">Photo</th>
 						<th class="text-center">Options</th>
 					</tr>
 					<c:forEach var="meal" items="${meals.content}">
 						<tr>
 							<td>${meal.name}</td>
 							<td>${meal.rate}</td>
-							<%-- <td>${meal.fullDescription}</td>
-							<td>${meal.cuisine.name}</td>
 							<td>${meal.price}</td>
-							<td>${meal.weight}</td> --%>
+							<td class="text-center">
+								<img src="${meal.photoUrl}?version=${meal.version}" style="width: 100px;">
+							</td>
 							<td class="text-center">
 								<a href="/admin/meal/update/${meal.id}<custom:allParams/>" class="btn btn-outline-warning btn-sm">Update</a>
 								<a href="/admin/meal/delete/${meal.id}<custom:allParams/>" class="btn btn-outline-danger btn-sm">Delete</a>

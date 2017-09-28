@@ -14,6 +14,10 @@ public class MealIndexView {
 	
 	private BigDecimal price;
 	
+	private String name;
+	
+	private String shortDescription;
+	
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -22,9 +26,6 @@ public class MealIndexView {
 		this.price = price;
 	}
 
-	private String name;
-	
-	private String shortDescription;
 	
 	public MealIndexView(Integer id, String photoUrl, int version, BigDecimal rate, BigDecimal price, String name,
 			String shortDescription) {

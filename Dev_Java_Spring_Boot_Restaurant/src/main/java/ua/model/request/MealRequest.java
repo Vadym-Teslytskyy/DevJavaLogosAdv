@@ -31,6 +31,26 @@ public class MealRequest {
 	private Cuisine cuisine;
 	
 	List<Component> components;
+	
+	private String photoUrl;
+	
+	private int version;
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	public Integer getId() {
 		return id;

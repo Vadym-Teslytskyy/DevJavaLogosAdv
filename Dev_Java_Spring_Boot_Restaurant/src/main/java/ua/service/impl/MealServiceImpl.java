@@ -58,6 +58,8 @@ public class MealServiceImpl implements MealService{
 		meal.setWeight(new Integer(request.getWeight()));
 		meal.setCuisine(request.getCuisine());
 		meal.setComponents(request.getComponents());
+		meal.setPhotoUrl(request.getPhotoUrl());
+		meal.setVersion(request.getVersion());
 		repository.save(meal);
 	}
 
@@ -72,6 +74,8 @@ public class MealServiceImpl implements MealService{
 		request.setWeight(String.valueOf((meal.getWeight())));
 		request.setCuisine(meal.getCuisine());
 		request.setComponents(meal.getComponents());
+		request.setPhotoUrl(meal.getPhotoUrl());
+		request.setVersion(meal.getVersion());
 		return request;
 	}
 

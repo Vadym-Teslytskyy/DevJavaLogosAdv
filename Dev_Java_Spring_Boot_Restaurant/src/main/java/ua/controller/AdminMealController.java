@@ -1,8 +1,13 @@
 package ua.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,9 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
+
+
 import ua.model.filter.MealFilter;
 import ua.model.filter.SimpleFilter;
+import ua.model.request.FileRequest;
 import ua.model.request.MealRequest;
+import ua.service.FileWriter;
 import ua.service.MealService;
 
 @Controller
@@ -28,11 +39,20 @@ import ua.service.MealService;
 @SessionAttributes("meal")
 public class AdminMealController {
 	
+	private final FileWriter writer;
+	
 	private final MealService service;
+	
+	@Value("${cloudinary.url}")
+	Cloudinary cloudinary = new Cloudinary();
+	
+	@Value("${file.path}")
+	private String path;
 	
 	
 	@Autowired
-	public AdminMealController(MealService service) {
+	public AdminMealController(FileWriter writer, MealService service) {
+		this.writer = writer;
 		this.service = service;
 	}
 	
@@ -51,6 +71,11 @@ public class AdminMealController {
 		return new MealFilter();
 	}
 	
+	@ModelAttribute("fileRequest")
+	public FileRequest getFile() {
+		return new FileRequest();
+}
+	
 	@GetMapping
 	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
 		model.addAttribute("cuisines", service.findAllCuisines());
@@ -67,9 +92,27 @@ public class AdminMealController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter) {
-		if(br.hasErrors()) return show(model, pageable, filter);
-		service.save(request);
+	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter, @ModelAttribute("fileRequest") FileRequest fileRequest) {
+		if(br.hasErrors()) 
+			return show(model, pageable, filter);
+		String photoUrl = writer.write(fileRequest.getFile());
+		File toUpload = new File(path+photoUrl);
+		try {
+			@SuppressWarnings("rawtypes")
+			Map uploadResult = cloudinary.uploader().upload(toUpload,
+					ObjectUtils.asMap("use_filename", "true", "unique_filename", "false"));
+			String cloudinaryUrl = (String) uploadResult.get("url");
+			String oldPhotoUrl = request.getPhotoUrl();
+			if ((oldPhotoUrl != null) && (oldPhotoUrl.equals(cloudinaryUrl))) {
+				request.setVersion(request.getVersion() + 1);
+			} else {
+				request.setVersion(0);
+			}
+			request.setPhotoUrl(cloudinaryUrl);
+			service.save(request);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 		return cancel(status, pageable, filter);
 	}
 	
