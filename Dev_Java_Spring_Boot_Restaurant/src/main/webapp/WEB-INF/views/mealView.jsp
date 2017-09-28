@@ -85,7 +85,7 @@
             <div class="col-12">
                       <div class="row">
                           <div class="col-4">
-                                <img src="<%-- ${meal.photoUrl} --%>/slider-images/slider-image-1.jpg" alt="..." class="img-fluid" style="width:400px; height:320px; float: left;">
+                                <img src="${meal.photoUrl}?version=${meal.version}" alt="..." class="img-fluid" style="width:400px; height:320px; float: left;">
                           </div>
                             <div class="col-8">
                                     <h4><b>Rate: </b>${meal.rate}</h4>

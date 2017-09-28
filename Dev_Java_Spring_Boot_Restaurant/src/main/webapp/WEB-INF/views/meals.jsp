@@ -184,7 +184,7 @@
      <c:forEach var="meal" items="${meals.content}">
 			<div class="col-sm-4">
                     <div class="img-hover">
-                        <a href="/meal/${meal.id}"><img src="<%-- ${meal.photoUrl} --%>/slider-images/slider-image-1.jpg" title="Show more" alt="Meal-Image" class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
+                        <a href="/meal/${meal.id}"><img src="${meal.photoUrl}?version=${meal.version}" title="Show more" alt="Meal-Image" class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
                     </div>
                     <div class="caption">
                         <h3>${meal.name}</h3>
