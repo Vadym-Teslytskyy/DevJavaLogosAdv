@@ -75,5 +75,75 @@
             </div>
         </div>
         </div>
+        
+        
+        <!-- Footer -->
+       <div class="container-fluid">
+        <div class="row footer">
+            <div class="col-sm-3">
+                <h1>Brand LOGO</h1>
+            </div>
+            <div class="col-sm-6">
+                <h3>About us</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nihil repudiandae id commodi quam totam sit atque quod, excepturi veritatis optio saepe impedit, earum, nemo cumque architecto incidunt porro deserunt.</p>
+                <br>
+                <p>© 2017 Vadym Teslytskyy </p>
+                <h4>Contact me:</h4>
+                <ul class="nav flex-column hover-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://plus.google.com/u/0/102680532622847810137"><i class="fa fa-google-plus-square"></i> Google+</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/Vadym-Teslytskyy"><i class="fa fa-github-square"></i> GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="https://www.linkedin.com/in/vadym-t-a97644a4/"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+                            </li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <ul class="nav flex-column hover-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/meals">Meals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ingredients</a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="#">Places</a>
+                            </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Order</a>
+                    </li>
+                     <li class="nav-item">
+                            <sec:authorize access="isAnonymous()">
+                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </a>
+                             </sec:authorize>
+                             <sec:authorize access="hasRole('ROLE_CLIENT')">
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                              ${message}</a>
+                             </sec:authorize>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+									<a href="/admin" class="btn btn-dark mt-1"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
+								</sec:authorize>
+                            </li>
+                            <li class="nav-item">
+                            	<sec:authorize access="isAnonymous()">
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                	</a>
+                                </sec:authorize>
+                                <sec:authorize access="isAuthenticated()">
+									<form:form action="/logout">
+										<button class="btn btn-dark mt-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+										</button>
+									</form:form>
+								</sec:authorize>
+                            </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

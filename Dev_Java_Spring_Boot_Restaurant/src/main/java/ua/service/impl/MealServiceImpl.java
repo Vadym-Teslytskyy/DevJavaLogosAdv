@@ -121,5 +121,10 @@ public class MealServiceImpl implements MealService{
 		return repository.findViewById(id);
 	}
 
+	@Override
+	public List<ComponentView> findComponentsOfMeal(Integer id) {
+		return repository.findComponentsOfMeal(id);
+	}
+
 	
 }

@@ -15,6 +15,8 @@ import ua.model.view.MealView;
 public interface MealService {
 
 	List<ComponentView> findAllComponents();
+	
+	List<ComponentView> findComponentsOfMeal(Integer id);
 
 	List<MealView> findAllView();
 
@@ -37,4 +39,5 @@ public interface MealService {
 	List<MealIndexView> find5MealsByRate();	
 	
 	MealView findById(Integer id);
+	
 }

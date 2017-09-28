@@ -1,21 +1,14 @@
 package ua.model.view;
 
-import java.util.List;
-
-import ua.entity.Component;
-
 public class IngredientView {
 
 	private Integer id;
 	
 	private String name;
 	
-	private List<Component> components;
-
-	public IngredientView(Integer id, String name, List<Component> components) {
+	public IngredientView(Integer id, String name) {
 		this.id = id;
 		this.name = name;
-		this.components = components;
 	}
 
 	public Integer getId() {
@@ -34,13 +27,4 @@ public class IngredientView {
 		this.name = name;
 	}
 
-	public List<Component> getComponents() {
-		return components;
-	}
-
-	public void setComponents(List<Component> components) {
-		this.components = components;
-	}
-	
-	
 }

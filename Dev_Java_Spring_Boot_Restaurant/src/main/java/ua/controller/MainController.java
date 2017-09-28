@@ -25,8 +25,6 @@ public class MainController {
 	public String index(Model model, User user, @PageableDefault Pageable pageable) {
 		if(user!=null){
 			model.addAttribute("message", "View profile "+user.getEmail());
-			System.out.println(user.getPassword());
-			System.out.println(user.getRole());
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
@@ -40,8 +38,13 @@ public class MainController {
 	}
 	
 	@GetMapping("/meal/{id}")
-	public String mealView(Model model, @PathVariable Integer id){
-		model.addAttribute("components", service.findAllComponents());
+	public String mealView(Model model, User user, @PathVariable Integer id){
+		if(user!=null){
+			model.addAttribute("message", "View profile "+user.getEmail());
+		}else {
+			model.addAttribute("message", "Hello unregistrated user");
+		}
+		model.addAttribute("components", service.findComponentsOfMeal(id));
 		model.addAttribute("meal", service.findById(id));
 		return "mealView";
 	}

@@ -14,12 +14,9 @@ import javax.persistence.Table;
 @Table(name="meal")
 public class Meal extends AbstractEntityName{
 	
-	
-	
 	public Meal() {
 	}
 	
-
 	public Meal(String name, String fullDescription, BigDecimal price, int weight, Cuisine cuisine,
 			List<Component> components) {
 		super(name);
@@ -29,9 +26,6 @@ public class Meal extends AbstractEntityName{
 		this.cuisine = cuisine;
 		this.components = components;
 	}
-
-
-
 
 	private String photoUrl;
 
@@ -51,28 +45,6 @@ public class Meal extends AbstractEntityName{
 	
 	private int countOfVoted;
 	
-	public BigDecimal getSumOfRate() {
-		return sumOfRate;
-	}
-
-
-	public void setSumOfRate(BigDecimal sumOfRate) {
-		this.sumOfRate = sumOfRate;
-	}
-
-
-	public int getCountOfVoted() {
-		return countOfVoted;
-	}
-
-
-	public void setCountOfVoted(int countOfVoted) {
-		this.countOfVoted = countOfVoted;
-	}
-
-
-
-
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Cuisine cuisine;
 	
@@ -82,6 +54,22 @@ public class Meal extends AbstractEntityName{
 	@ManyToMany
 	private List<Component> components = new ArrayList<>();
 	
+	public BigDecimal getSumOfRate() {
+		return sumOfRate;
+	}
+
+	public void setSumOfRate(BigDecimal sumOfRate) {
+		this.sumOfRate = sumOfRate;
+	}
+
+	public int getCountOfVoted() {
+		return countOfVoted;
+	}
+
+	public void setCountOfVoted(int countOfVoted) {
+		this.countOfVoted = countOfVoted;
+	}
+
 	public List<Order> getOrders() {
 		return orders;
 	}

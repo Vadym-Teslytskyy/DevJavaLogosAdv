@@ -39,6 +39,9 @@
                                 <a class="nav-link" href="/ingredients">Ingredients</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="#">Places</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Order</a>
                             </li>
                         </ul>
@@ -99,6 +102,13 @@
                                     	<div class="col-2">
                                     		<h5><b>Cuisine: </b>${meal.cuisine}</h5>
                                     	</div>
+                                    	<div class="col-4">
+                     			<sec:authorize access="hasRole('ROLE_CLIENT')">
+                             		<form:form action="#<%-- /buy(orderIt) --%>">
+										<button class="btn btn-success ml-1">Buy now!</button>
+									</form:form>
+                     			</sec:authorize>
+                     		</div>
                                     </div>
                                     <h3>Full description</h3>
                                     <p>${meal.fullDescription}</p>
@@ -158,6 +168,20 @@
             <div class="col-sm-6">
                 <h3>About us</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nihil repudiandae id commodi quam totam sit atque quod, excepturi veritatis optio saepe impedit, earum, nemo cumque architecto incidunt porro deserunt.</p>
+                <br>
+                <p>© 2017 Vadym Teslytskyy </p>
+                <h4>Contact me:</h4>
+                <ul class="nav flex-column hover-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://plus.google.com/u/0/102680532622847810137"><i class="fa fa-google-plus-square"></i> Google+</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/Vadym-Teslytskyy"><i class="fa fa-github-square"></i> GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="https://www.linkedin.com/in/vadym-t-a97644a4/"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+                            </li>
+                </ul>
             </div>
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
@@ -168,6 +192,9 @@
                         <a class="nav-link" href="#">Ingredients</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#">Places</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Order</a>
                     </li>
                      <li class="nav-item">
@@ -175,7 +202,8 @@
                                 <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i></a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${message}</a>
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                              ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
 									<a href="/admin" class="btn btn-dark mt-1"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>

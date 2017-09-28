@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
+import ua.entity.User;
 import ua.model.filter.MealFilter;
 import ua.service.MealService;
 
@@ -32,7 +33,12 @@ public class MealsMenuController {
 	}
 	
 	@GetMapping
-	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
+	public String show(Model model, User user, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
+		if(user!=null){
+			model.addAttribute("message", "View profile "+user.getEmail());
+		}else {
+			model.addAttribute("message", "Hello unregistrated user");
+		}
 		model.addAttribute("cuisines", service.findAllCuisines());
 		model.addAttribute("ingredients", service.findAllIngredients());
 		model.addAttribute("meals", service.findAll(filter, pageable));

@@ -39,6 +39,9 @@
                                 <a class="nav-link" href="/ingredients">Ingredients</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="#">Places</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Order</a>
                             </li>
                         </ul>
@@ -118,12 +121,18 @@
                         <h4>${meal.rate}</h4>
                         <h5>${meal.price} $</h5>
                         <p>${meal.shortDescription}</p>
-                        <p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                        <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <form:form action="#<%-- /buy(orderIt) --%>">
-								<button class="btn btn-success ml-1">Buy now!</button>
-							</form:form>
-                     </sec:authorize>
+                        <div class="row">
+                        	<div class="col-4">
+                        		<p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                     		</div>
+                     		<div class="col-4">
+                     			<sec:authorize access="hasRole('ROLE_CLIENT')">
+                             		<form:form action="#<%-- /buy(orderIt) --%>">
+										<button class="btn btn-success ml-1">Buy now!</button>
+									</form:form>
+                     			</sec:authorize>
+                     		</div>
+                     </div>
                     </div>
             </div>
 				</c:forEach>
@@ -137,6 +146,20 @@
             <div class="col-sm-6">
                 <h3>About us</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nihil repudiandae id commodi quam totam sit atque quod, excepturi veritatis optio saepe impedit, earum, nemo cumque architecto incidunt porro deserunt.</p>
+                <br>
+                <p>© 2017 Vadym Teslytskyy </p>
+                <h4>Contact me:</h4>
+                <ul class="nav flex-column hover-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://plus.google.com/u/0/102680532622847810137"><i class="fa fa-google-plus-square"></i> Google+</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/Vadym-Teslytskyy"><i class="fa fa-github-square"></i> GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="https://www.linkedin.com/in/vadym-t-a97644a4/"><i class="fa fa-linkedin-square"></i> LinkedIn</a>
+                            </li>
+                </ul>
             </div>
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
@@ -147,6 +170,9 @@
                         <a class="nav-link" href="#">Ingredients</a>
                     </li>
                     <li class="nav-item">
+                                <a class="nav-link" href="#">Places</a>
+                            </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Order</a>
                     </li>
                      <li class="nav-item">
@@ -155,7 +181,7 @@
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
