@@ -86,6 +86,9 @@
         </div>
         		<div class="row">
 			<div class="col-12">
+			<c:if test="${empty meals.content}">
+		    	<h4 class="text-center" style="color:red; font-style: bold;">Meals with this ingredient not found</h4>
+			</c:if>
 				<table class="table table-bordered">
 					<tr>
 						<th class="text-center">Name</th>
