@@ -1,10 +1,8 @@
 package ua.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,15 +19,15 @@ public class User extends AbstractEntity{
 
 	private int version;
 	
-	@OneToMany(mappedBy="userWhoReserved")
-	private List<Place> places = new ArrayList<>();
+	@OneToOne(fetch=FetchType.LAZY)
+	private Place place;
 
-	public List<Place> getPlaces() {
-		return places;
+	public Place getPlace() {
+		return place;
 	}
 
-	public void setPlaces(List<Place> places) {
-		this.places = places;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	public String getPhotoUrl() {

@@ -1,24 +1,56 @@
 package ua.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="_order")
 public class Order extends AbstractEntity{
 	
+	private LocalDateTime time;
+	
+	private OrderStatus status;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	private Place place;
+	
 	@ManyToMany
 	private List<Meal> meals = new ArrayList<>();
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Place place;
+	public Order() {
+	}
 
+	public Order(OrderStatus status, Place place, List<Meal> meals) {
+		this.status = status;
+		this.place = place;
+		this.meals = meals;
+		this.status = OrderStatus.ACCEPTED;
+		this.time = LocalDateTime.now();
+	}
+
+	public LocalDateTime getTime() {
+		return time;
+	}
+	
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+	
+	public OrderStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+	
 	public List<Meal> getMeals() {
 		return meals;
 	}
