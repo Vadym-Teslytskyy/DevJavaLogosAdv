@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import ua.entity.Ingredient;
 import ua.model.filter.SimpleFilter;
+import ua.model.view.IngredientView;
+import ua.model.view.MealView;
 import ua.repository.IngredientRepository;
 import ua.service.IngredientService;
 
@@ -38,5 +40,15 @@ public class IngredientServiceImpl extends CrudServiceImpl<Ingredient, Integer> 
 					return cb.like(root.get("name"), filter.getSearch()+"%");
 				};
 			}
+
+	@Override
+	public Page<MealView> findMealsOfIngredient( Integer id, Pageable pageable) {
+		return repository.findMealsViewOfIngredient(id, pageable);
+	}
+
+	@Override
+	public IngredientView findById(Integer id) {
+		return repository.findViewById(id);
+	}
 
 }

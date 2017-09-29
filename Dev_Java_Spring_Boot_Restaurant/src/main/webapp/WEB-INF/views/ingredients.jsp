@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="#">MyRestaurant</a>
+                    <a class="navbar-brand" href="/">MyRestaurant</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -36,36 +36,42 @@
                                 <a class="nav-link" href="/meals">Meals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="/ingredients">Ingredients</a>
+                                <a class="nav-link" href="/ingredients">Ingredients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Places</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Order</a>
                             </li>
                         </ul>
-                        <form:form action="/ingredients" method="GET" modelAttribute="filter" class="form-inline my-2 my-lg-0" >
-                        <%-- <custom:hiddenInputs excludeParams="name, _csrf"/> Перенести в форму фільтрації--%>
-                            <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form:form>
+                        </form>
                         <ul class="navbar-nav ml-auto hover-nav">
                             <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
-                                <a class="nav-link" href="/login">Sing in</a>
+                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark">${message}</a>
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                              ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-									<a href="/admin" class="btn btn-dark">Admin</a>
+									<a href="/admin" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
 								</sec:authorize>
                             </li>
                             <li class="nav-item">
                             	<sec:authorize access="isAnonymous()">
-                                	<a class="nav-link" href="/registration">Sing up</a>
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                	</a>
                                 </sec:authorize>
                                 <sec:authorize access="isAuthenticated()">
 									<form:form action="/logout">
-										<button class="btn btn-dark ml-1">Logout</button>
+										<button class="btn btn-dark ml-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+										</button>
 									</form:form>
 								</sec:authorize>
                             </li>
@@ -75,7 +81,57 @@
             </div>
         </div>
         </div>
-        
+    <div class="container mt-5">
+		<div class="row d-flex justify-content-center">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Options</th>
+					</tr>
+					<c:forEach var="ingredient" items="${ingredients.content}">
+						<tr>
+							<td>${ingredient.name}</td>
+							<td class="text-center">
+								<a href="/ingredient/${ingredient.id}<custom:allParams/>" class="btn btn-outline-warning btn-sm">Show more</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+			<div class="row mt-2">
+		<div class="col-4">
+				<form:form action="/ingredients" method="GET" modelAttribute="filter">
+					<div class="form-group row">
+						<div class="col-12">
+							<form:input class="form-control" path="search" placeholder="Search by ingredient name"/>
+						</div>
+					</div>
+				</form:form>
+			</div>
+			<div class="col-8">
+				<div class="row">
+					<div class="col-6 text-center">
+							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
+							</button>
+							<div class="dropdown-menu">
+								<custom:sort innerHtml="Name asc" paramValue="name"/>
+								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+							</div>
+					</div>
+					<div class="col-6 text-center">
+						<custom:size posibleSizes="1,2,5,10" size="${ingredients.size}" />
+					</div>
+				</div>
+			</div>
+	</div>
+		<div class="row">
+			<div class="col-12">
+				<custom:pageable page="${ingredients}"/>
+			</div>
+		</div>
+	</div>
         
         <!-- Footer -->
        <div class="container-fluid">
@@ -107,7 +163,7 @@
                         <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ingredients</a>
+                        <a class="nav-link" href="/ingredients">Ingredients</a>
                     </li>
                     <li class="nav-item">
                                 <a class="nav-link" href="#">Places</a>

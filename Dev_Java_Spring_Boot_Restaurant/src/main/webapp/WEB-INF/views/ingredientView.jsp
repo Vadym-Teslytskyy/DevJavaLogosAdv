@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="#">MyRestaurant</a>
+                    <a class="navbar-brand" href="/">MyRestaurant</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -52,12 +52,10 @@
                         <ul class="navbar-nav ml-auto hover-nav">
                             <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
-                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                </a>
+                                <a class="nav-link" href="/login">Sing in  <i class="fa fa-sign-in" aria-hidden="true"></i></a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
-                              ${message}</a>
+                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
 									<a href="/admin" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
@@ -65,13 +63,11 @@
                             </li>
                             <li class="nav-item">
                             	<sec:authorize access="isAnonymous()">
-                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                	</a>
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i></a>
                                 </sec:authorize>
                                 <sec:authorize access="isAuthenticated()">
 									<form:form action="/logout">
-										<button class="btn btn-dark ml-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
-										</button>
+										<button class="btn btn-dark ml-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 									</form:form>
 								</sec:authorize>
                             </li>
@@ -81,63 +77,77 @@
             </div>
         </div>
         </div>
-        <div class="container-fluid d-none d-sm-block">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="/slider-images/slider-image-1.jpg" alt="First slide" style="width:100%; height: 410px;">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="/slider-images/slider-image-2.jpg" alt="Second slide" style="width:100%; height: 410px;">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="/slider-images/slider-image-3.jpg" alt="Third slide" style="width:100%; height: 410px;">
-                </div>
+	<!-- Body of ingredientView -->   
+	    <div class="container">
+        <div class="row mt-5">
+            <div class="col-4 mt-2">
+                <h3 id="meal-name">${ingredient.name} is in this meals:</h3>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+        </div>
+        		<div class="row">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<tr>
+						<th class="text-center">Name</th>
+						<th class="text-center">Rate</th>
+						<th class="text-center">Price</th>
+						<th class="text-center">Photo</th>
+						<th class="text-center">Options</th>
+					</tr>
+					<c:forEach var="meal" items="${meals.content}">
+						<tr>
+							<td>${meal.name}</td>
+							<td>${meal.rate}</td>
+							<td>${meal.price}</td>
+							<td class="text-center">
+								<img src="${meal.photoUrl}?version=${meal.version}" style="width: 100px;">
+							</td>
+							<td class="text-center">
+								<a href="/admin/meal/update/${meal.id}<custom:allParams/>" class="btn btn-outline-success btn-sm">Buy now!</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div class="row mt-2 ml-auto">
+			<div class="col-2">
+				<div class="row">
+					<div class="col-6 text-center">
+							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
+							</button>
+							<div class="dropdown-menu">
+								<custom:sort innerHtml="Name asc" paramValue="name"/>
+								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+							</div>
+					</div>
+					<div class="col-6 text-center">
+						<custom:size posibleSizes="1,2,5,10" size="${meals.size}" />
+					</div>
+				</div>
+			</div>
+	</div>
+		<div class="row mt-2">
+			<div class="col-12">
+				<custom:pageable page="${meals}"/>
+			</div>
+		</div>
+	</div>
+        
+        <div class="row">
+        	<div class="col-2">
+        		<h3>Comments:</h3>
+        	</div>
+        </div>
+        <div class="row">
+        	<div class="col-12 card">
+        		<h3>Username + image:</h3>
+        		<h5>Rating that user chooses:</h5>
+        		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit architecto quia eos, beatae assumenda ducimus temporibus! Qui quasi iusto quo nobis repudiandae, expedita aspernatur placeat, assumenda natus rerum iste reprehenderit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. In cupiditate, dolore accusamus, ea sequi nostrum nihil perspiciatis consequuntur nemo labore corporis earum incidunt temporibus officiis optio fugiat minus magnam molestias!</p>
+        	</div>
         </div>
     </div>
-    <div class="container">
-    	<div class="row meals-container-first-row">
-    	<c:forEach var="meal" items="${meals}" end="5">
-			<div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="/meal/${meal.id}"><img src="${meal.photoUrl}?version=${meal.version}" title="Show more" alt="..." class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>${meal.name}</h3>
-                        <h4>${meal.rate}</h4>
-                        <h5>${meal.price} $</h5>
-                        <p>${meal.shortDescription}</p>
-                        <div class="row">
-                        	<div class="col-4">
-                        		<p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                     		</div>
-                     		<div class="col-4">
-                     			<sec:authorize access="hasRole('ROLE_CLIENT')">
-                             		<form:form action="#<%-- /buy(orderIt) --%>">
-										<button class="btn btn-success ml-1">Buy now!</button>
-									</form:form>
-                     			</sec:authorize>
-                     		</div>
-                     </div>
-                    </div>
-            </div>
-				</c:forEach>
-    	</div>
-    </div> 
+    
          <div class="container-fluid">
         <div class="row footer">
             <div class="col-sm-3">
@@ -170,15 +180,14 @@
                         <a class="nav-link" href="/ingredients">Ingredients</a>
                     </li>
                     <li class="nav-item">
-                                <a class="nav-link" href="#">Places</a>
-                            </li>
+                        <a class="nav-link" href="#">Places</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Order</a>
                     </li>
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
-                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                </a>
+                                <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i></a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
                              <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
@@ -190,23 +199,17 @@
                             </li>
                             <li class="nav-item">
                             	<sec:authorize access="isAnonymous()">
-                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                	</a>
+                                	<a class="nav-link" href="/registration">Sing up <i class="fa fa-user-plus" aria-hidden="true"></i></a>
                                 </sec:authorize>
                                 <sec:authorize access="isAuthenticated()">
 									<form:form action="/logout">
-										<button class="btn btn-dark mt-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
-										</button>
+										<button class="btn btn-dark mt-1">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 									</form:form>
 								</sec:authorize>
                             </li>
-
                 </ul>
             </div>
         </div>
     </div>
-    
-	
-	
 </body>
 </html>

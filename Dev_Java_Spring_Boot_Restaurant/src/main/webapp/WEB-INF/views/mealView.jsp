@@ -189,7 +189,7 @@
                         <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ingredients</a>
+                        <a class="nav-link" href="/ingredients">Ingredients</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Places</a>
