@@ -49,7 +49,7 @@
                                 <a class="nav-link" href="#">Order</a>
                             </li>
                         </ul>
-                        <form:form action="/meals" method="GET" modelAttribute="mealFilter" class="form-inline my-2 my-lg-0" >
+                        <form:form action="/meals" method="GET" modelAttribute="filter" class="form-inline my-2 my-lg-0" >
                             <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form:form>
@@ -85,137 +85,75 @@
             </div>
         </div>
         </div>
-       	<div class="container mt-5">
-        	<!-- Accordion for show more ingredients or something else.-->
-         <div class="row mt-1">
-        <div id="accordion" role="tablist" class="col-12" >
-            <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Open to filtering or sorting</a>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        				<form:form action="/meals" method="GET" modelAttribute="mealFilter">
+        
+        <!-- Body -->
+        <div class="container-fluid">
+        	<div class="row mt-5">
+        		<!-- Table with places -->
+        		<div class="col-5 mt-4">
+        			<div class="row">
+						<div class="col-12">
+						<h4 style="font-style:bold;">All of this places are free now:</h4>
+							<table class="table table-bordered">
+								<tr>
+									<th class="text-center">Number of place</th>
+									<th class="text-center">Count of people</th>
+									<th class="text-center">Options</th>
+					</tr>
+					<c:forEach var="place" items="${places.content}">
+						<tr>
+							<td>${place.number}</td>
+							<td>${place.countofPeople}</td>
+							<td class="text-center">
+								<a href="/places/${place.id}/order<custom:allParams/>" class="btn btn-outline-success btn-sm">Reserve</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+        		</div>
+        		<!-- Image of places -->
+        		<div class="col-7 mt-4">
+        			<img alt="Error" src="/images/8bbf376af40a1dfddc7147f871860d2c.jpg" class="img-fluid">
+        		</div>
+        	</div>
+        </div>
+        <div class="container">
+        				<div class="row mt-2">
+		<div class="col-4">
+				<form:form action="/places" method="GET" modelAttribute="filter">
 					<div class="form-group row">
 						<div class="col-12">
-							<form:input path="search" class="form-control" placeholder="Search"/>
+							<form:input class="form-control" path="search" placeholder="Search by place number"/>
 						</div>
 					</div>
-					<div class="form-group row">
-						<div class="col-6">
-							<form:input path="minRate" class="form-control" placeholder="Min rate"/>
-						</div>
-						<div class="col-6">
-							<form:input path="maxRate" class="form-control" placeholder="Max rate"/>
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="col-6">
-							<form:input path="minPrice" class="form-control" placeholder="Min price"/>
-						</div>
-						<div class="col-6">
-							<form:input path="maxPrice" class="form-control" placeholder="Max prcice"/>
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="col-6">
-							<form:input path="minWeight" class="form-control" placeholder="Min wieght"/>
-						</div>
-						<div class="col-6">
-							<form:input path="maxWeight" class="form-control" placeholder="Max wieght"/>
-						</div>
-					</div>
-			<div class="row">
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseCuisines" aria-expanded="false" aria-controls="collapseCuisines">Cuisines<i class="fa fa-arrow-down ml-1"></i></button>
-				</div>
-				<div id="collapseCuisines" class="collapse">
-                    <div class="card-body">
-                    <div class="form-group row">
-						<div class="col-12">
-							<form:checkboxes items="${cuisines}" path="cuisinesIds" element="div" />
-						</div>
-					</div>
-                	</div>
-				</div>
-			
-			<div class="row mt-2">
-				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">Ingredients<i class="fa fa-arrow-down ml-1"></i></button>
-				</div>
-				<div id="collapseIngredients" class="collapse">
-                    <div class="card-body">
-                    <div class="form-group row">
-						<div class="col-12">
-							<form:checkboxes items="${ingredients}" path="ingredientIds" element="div" />
-						</div>
-					</div>
-                	</div>
-				</div>
-			<div class="row mt-2">
-			<div class="col-4 ml-auto">
+				</form:form>
+			</div>
+			<div class="col-8">
 				<div class="row">
 					<div class="col-6 text-center">
 							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
 							</button>
 							<div class="dropdown-menu">
-								<custom:sort innerHtml="Name asc" paramValue="name"/>
-								<custom:sort innerHtml="Name desc" paramValue="name,desc"/>
+								<custom:sort innerHtml="Number asc" paramValue="number"/>
+								<custom:sort innerHtml="Number desc" paramValue="number,desc"/>
 							</div>
 					</div>
 					<div class="col-6 text-center">
-						<custom:size posibleSizes="1,2,5,10" size="${meals.size}" />
+						<custom:size posibleSizes="1,2,5,10" size="${places.size}" />
 					</div>
 				</div>
 			</div>
 	</div>
-					<div class="form-group row mt-4">
-						<div class="col-12">
-        					<button type="submit" class="btn btn-outline-success btn-sm">Search</button>
-      					</div>
-					</div>
-				</form:form>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</div>
-	<!-- /Accordion -->
-	</div>
-	<div class="container mt-2">
-	<div class="row">
-     <c:forEach var="meal" items="${meals.content}">
-			<div class="col-sm-4">
-                    <div class="img-hover">
-                        <a href="/meal/${meal.id}"><img src="${meal.photoUrl}?version=${meal.version}" title="Show more" alt="Meal-Image" class="rounded-circle img-fluid" style="width:220px; height:220px;"></a>
-                    </div>
-                    <div class="caption">
-                        <h3>${meal.name}</h3>
-                        <h4>${meal.rate}</h4>
-                        <p>${meal.shortDescription}</p>
-                        <div class="row">
-                        	<div class="col-4">
-                        		<p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
-                     		</div>
-                     		<div class="col-4">
-                     			<sec:authorize access="hasRole('ROLE_CLIENT')">
-                             		<form:form action="#<%-- /buy(orderIt) --%>">
-										<button class="btn btn-success ml-1">Buy now!</button>
-									</form:form>
-                     			</sec:authorize>
-                     		</div>
-                     </div>
-                    </div>
-            </div>
-		</c:forEach> 
-    </div>
-         <div class="row">
+		<div class="row">
 			<div class="col-12">
-				<custom:pageable page="${meals}"/>
+				<custom:pageable page="${places}"/>
 			</div>
 		</div>
-    </div>
-        
+	</div>
+        </div>
+       	<!-- /Body -->
          <div class="container-fluid">
         <div class="row footer">
             <div class="col-sm-3">

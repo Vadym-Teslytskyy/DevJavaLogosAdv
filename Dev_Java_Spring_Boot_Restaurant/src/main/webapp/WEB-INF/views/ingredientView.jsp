@@ -39,7 +39,7 @@
                                 <a class="nav-link" href="/ingredients">Ingredients</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Places</a>
+                                <a class="nav-link" href="/places">Places</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Order</a>
@@ -183,7 +183,7 @@
                         <a class="nav-link" href="/ingredients">Ingredients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Places</a>
+                        <a class="nav-link" href="/places">Places</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Order</a>

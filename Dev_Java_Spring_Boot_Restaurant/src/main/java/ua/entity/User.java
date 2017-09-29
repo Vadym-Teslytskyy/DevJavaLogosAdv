@@ -1,7 +1,11 @@
 package ua.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,6 +25,17 @@ public class User extends AbstractEntity{
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	private Place place;
+	
+	@OneToMany(mappedBy="user")
+	List<Meal> tastedMeals = new ArrayList<>();
+
+	public List<Meal> getTastedMeals() {
+		return tastedMeals;
+	}
+
+	public void setTastedMeals(List<Meal> tastedMeals) {
+		this.tastedMeals = tastedMeals;
+	}
 
 	public Place getPlace() {
 		return place;

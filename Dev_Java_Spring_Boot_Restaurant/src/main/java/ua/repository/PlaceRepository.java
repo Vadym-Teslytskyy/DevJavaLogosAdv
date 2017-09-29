@@ -16,7 +16,7 @@ public interface PlaceRepository extends JpaRepository<Place, Integer>, JpaSpeci
 	@Query("SELECT new ua.model.view.PlaceView(	p.id, p.countofPeople, p.number, p.isFree) FROM Place p")
 	List<PlaceView> findAllView();
 	
-	@Query(value="SELECT new ua.model.view.PlaceView(	p.id, p.countofPeople, p.number, p.isFree) FROM Place p",
+	@Query(value="SELECT new ua.model.view.PlaceView(p.id, p.countofPeople, p.number, p.isFree) FROM Place p WHERE p.isFree=true",
 			countQuery="SELECT count(p.id) FROM Place p")
 	Page<PlaceView> findAllView(Pageable pageable);
 

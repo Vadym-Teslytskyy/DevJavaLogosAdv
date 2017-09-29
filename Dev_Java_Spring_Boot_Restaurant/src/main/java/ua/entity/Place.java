@@ -1,5 +1,6 @@
 package ua.entity;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -70,4 +71,13 @@ public class Place extends AbstractEntity{
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	
+//	@PostConstruct
+//	private void isFreeFlag(){
+//		if (userWhoReserved!=null) {
+//			isFree = false;
+//		}else {
+//			isFree = true;
+//		}
+//	}
 }
