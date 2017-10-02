@@ -22,4 +22,8 @@ public interface PlaceService {
 	Page<PlaceView> findAllView(Pageable pageable);
 
 	Page<PlaceView> findAllView(Pageable pageable, SimpleFilter filter);
+
+	void updateUserId(Integer userId, Integer placeId);
+	
+	void cancelAllReservations (Integer userId, Integer placeId);
 }

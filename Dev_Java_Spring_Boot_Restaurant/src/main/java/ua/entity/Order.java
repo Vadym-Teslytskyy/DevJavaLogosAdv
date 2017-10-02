@@ -26,13 +26,11 @@ public class Order extends AbstractEntity{
 	
 	public Order() {
 	}
-
+	
 	public Order(OrderStatus status, Place place, List<Meal> meals) {
 		this.status = status;
 		this.place = place;
 		this.meals = meals;
-		this.status = OrderStatus.ACCEPTED;
-		this.time = LocalDateTime.now();
 	}
 
 	public LocalDateTime getTime() {

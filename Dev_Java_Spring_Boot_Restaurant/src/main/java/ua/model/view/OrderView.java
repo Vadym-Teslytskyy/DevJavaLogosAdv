@@ -2,25 +2,35 @@ package ua.model.view;
 
 import java.util.List;
 
-import ua.entity.Meal;
+import ua.entity.OrderStatus;
 import ua.entity.Place;
 
 public class OrderView {
 	
 	private Integer id;
 	
-	private List<Meal> meals;
+	private List<MealView> meals;
 	
 	private Place place;
+	
+	private OrderStatus status;
+	
 
-
-	public OrderView(Integer id, List<Meal> meals, Place place) {
+	public OrderView(Integer id, Place place, OrderStatus status) {
 		this.id = id;
-		this.meals = meals;
 		this.place = place;
+		this.status = status;
 	}
 
 	
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -30,11 +40,11 @@ public class OrderView {
 	}
 
 
-	public List<Meal> getMeals() {
+	public List<MealView> getMeals() {
 		return meals;
 	}
 
-	public void setMeals(List<Meal> meals) {
+	public void setMeals(List<MealView> meals) {
 		this.meals = meals;
 	}
 

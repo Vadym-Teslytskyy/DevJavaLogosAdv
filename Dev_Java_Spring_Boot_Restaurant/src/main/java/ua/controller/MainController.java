@@ -33,7 +33,8 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin")
-	public String admin() {
+	public String admin(Model model, User user) {
+		model.addAttribute("user", user);
 		return "admin";
 	}
 	

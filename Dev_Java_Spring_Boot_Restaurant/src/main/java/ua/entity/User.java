@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +26,7 @@ public class User extends AbstractEntity{
 	@OneToOne(fetch=FetchType.LAZY)
 	private Place place;
 	
-	@OneToMany(mappedBy="user")
+	@ManyToMany
 	List<Meal> tastedMeals = new ArrayList<>();
 
 	public List<Meal> getTastedMeals() {

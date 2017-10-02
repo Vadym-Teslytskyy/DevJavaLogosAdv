@@ -21,7 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <!-- My style CSS -->
     <link rel="stylesheet" href="/css/main_page.css" type="text/css">
-<title>MyRestaurant(Meals-Menu)</title>
+<title>MyRestaurant(Admin-Orders)</title>
 </head>
 <body>
 
@@ -45,14 +45,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
+                            <c:if test="${user.place != null }">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Order</a>
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
                             </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                         </ul>
-                        <form:form action="/meals" method="GET" modelAttribute="filter" class="form-inline my-2 my-lg-0" >
-                            <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form:form>
+                        
                         <ul class="navbar-nav ml-auto hover-nav">
                             <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
@@ -60,7 +64,7 @@
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -87,81 +91,91 @@
         </div>
         
         <!-- Body -->
-        <div class="container-fluid">
-        	<div class="row mt-5">
-        		<!-- Table with places -->
-        		<div class="col-5 mt-4">
-        			<div class="row">
-						<div class="col-12">
-						<h4 style="font-style:bold;">All of this places are free now:</h4>
-							<table class="table table-bordered">
-								<tr>
-									<th class="text-center">Number of place</th>
-									<th class="text-center">Count of people</th>
-									<th class="text-center">Options</th>
-					</tr>
-					<c:forEach var="place" items="${places.content}">
-						<tr>
-							<td>${place.number}</td>
-							<td>${place.countofPeople}</td>
-							<td class="text-center">
-							<sec:authorize access="isAnonymous()">
-                                <a href="/login<custom:allParams/>" class="btn btn-outline-success btn-sm">Reserve(Please sing in)</a>
-                             </sec:authorize>
-                             <sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}" class="btn btn-outline-success btn-sm">Reserve</a>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}/cancel" class="btn btn-outline-warning btn-sm">Cancel</a>
-							</sec:authorize>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</div>
+        <div class="container mt-5">
+        	<div class="row">
+        		<div class="col-4">
+        		<div class="row">
+        			<h4 class="mt-2">Photo</h4>
         		</div>
-        		<!-- Image of places -->
-        		<div class="col-7 mt-4">
-        			<img alt="Error" src="/images/8bbf376af40a1dfddc7147f871860d2c.jpg" class="img-fluid">
+        			<div class="row">
+        				<img src="${user.photoUrl}?version=${user.version}" alt="..." class="img-fluid mt-2" style="width:220px; height:220px; float: left;">
+        			</div>
+        			<div class="row">
+        			<form:form action="/profile/${user.id}" method="POST" modelAttribute="userProfile" enctype="multipart/form-data">
+        			<div class="form-group row">
+						<label class="col-2 col-form-label" for="file">Upload photo:</label>
+						<div class="col-10">
+							<input name="file" type="file">
+							<div class="form-group">
+									<button class="btn btn-sm btn-outline-success">Upload</button>
+							</div>
+						</div>
+					</div>
+					</form:form>
+					</div>
+        		</div>
+        		<div class="col-8">
+        			<h4 class="mt-2">Email:</h4>
+        			<p>${user.email}</p>
+        			<h4>Role:</h4>
+        			<p>${user.role}</p>
+        			<h4>Tasted meals:</h4>
+        			<div id="accordion" role="tablist">
+            			<div class="card">
+                			<div class="card-header" role="tab" id="headingOne">
+                    			<h5 class="mb-0">
+                        			<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Show tasted meals<i class="fa fa-arrow-down ml-1"></i></a>
+                    			</h5>
+                			</div>
+                		<div id="collapseOne" class="collapse " role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                    	<div class="card-body">
+                    	<table class="table table-bordered">
+							<tr>
+								<th class="text-center">Name</th>
+								<th class="text-center">Rate</th>
+								<th class="text-center">Price</th>
+								<th class="text-center">Photo</th>
+								<th class="text-center">Options</th>
+							</tr>
+							<c:forEach var="meal" items="${meals}">
+								<tr>
+									<td>${meal.name}</td>
+									<td>${meal.rate}</td>
+									<td>${meal.price}</td>
+									<td>
+										<img src="${meal.photoUrl}?version=${meal.version}" style="width: 100px;">
+									</td>
+									<td>
+										<c:if test="${user.place != null }">
+                                			<sec:authorize access="isAuthenticated()">
+                             					<form:form action="/places/${user.place.id}/order" method="POST" modelAttribute="order">
+													<button class="btn btn-success">Buy now!</button>
+												</form:form>
+                     						</sec:authorize>
+										</c:if>
+										<c:if test="${user.place == null }">
+												<sec:authorize access="isAuthenticated()">
+                             					<a class="nav-link" href="/places">Buy now!(But first reserve place)</a>
+                     							</sec:authorize>
+                     							<sec:authorize access="isAnonymous()">
+                             					<a class="nav-link" href="/login">Buy now!(But first sing in)</a>
+                     							</sec:authorize>
+                            			</c:if>
+                            		</td>
+								</tr>
+							</c:forEach>
+						</table>
+                    </div>
+                </div>
+            </div>
+        </div>
         		</div>
         	</div>
         </div>
-        <div class="container">
-        				<div class="row mt-2">
-		<div class="col-4">
-				<form:form action="/places" method="GET" modelAttribute="filter">
-					<div class="form-group row">
-						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search by place number"/>
-						</div>
-					</div>
-				</form:form>
-			</div>
-			<div class="col-8">
-				<div class="row">
-					<div class="col-6 text-center">
-							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
-							</button>
-							<div class="dropdown-menu">
-								<custom:sort innerHtml="Number asc" paramValue="number"/>
-								<custom:sort innerHtml="Number desc" paramValue="number,desc"/>
-							</div>
-					</div>
-					<div class="col-6 text-center">
-						<custom:size posibleSizes="1,2,5,10" size="${places.size}" />
-					</div>
-				</div>
-			</div>
-	</div>
-		<div class="row">
-			<div class="col-12">
-				<custom:pageable page="${places}"/>
-			</div>
-		</div>
-	</div>
-        </div>
+        
        	<!-- /Body -->
+       	
+       	
          <div class="container-fluid">
         <div class="row footer">
             <div class="col-sm-3">
@@ -196,9 +210,16 @@
                     <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Order</a>
-                    </li>
+                   			<c:if test="${user.place != null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
+                            </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
                                 <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -230,7 +251,6 @@
         </div>
     </div>
     
-	
 	
 </body>
 </html>

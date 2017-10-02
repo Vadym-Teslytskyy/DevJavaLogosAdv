@@ -121,12 +121,12 @@ public class MealView {
 		this.cuisine = cuisine;
 	}
 
+
 	@Override
 	public String toString() {
-		return "MealView [id=" + id + ", photoUrl=" + photoUrl + ", version=" + version + ", rate=" + rate + ", name="
-				+ name + ", fullDescription=" + fullDescription + ", price=" + price + ", components=" + components
-				+ ", weight=" + weight + ", cuisine=" + cuisine + "]";
+		return "Name=" + name + ", Price=" + price + ", Cuisine=" + cuisine;
 	}
+
 	
 	
 	

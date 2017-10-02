@@ -9,20 +9,25 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import ua.entity.Place;
+import ua.entity.User;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.PlaceRequest;
 import ua.model.view.PlaceView;
 import ua.repository.PlaceRepository;
+import ua.repository.UserRepository;
 import ua.service.PlaceService;
 
 @Service
 public class PlaceServiceImpl implements PlaceService{
 	
 	private final PlaceRepository repository;
+	
+	private final UserRepository userRepository;
 
 	@Autowired
-	public PlaceServiceImpl(PlaceRepository repository) {
+	public PlaceServiceImpl(PlaceRepository repository, UserRepository userRepository) {
 		this.repository = repository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -71,6 +76,30 @@ public class PlaceServiceImpl implements PlaceService{
 			if(filter.getSearch().isEmpty()) return null;
 			return cb.equal(root.get("number"), filter.getSearch());
 		};
+	}
+
+
+	@Override
+	public void updateUserId(Integer userId, Integer placeId) {
+		Place place = repository.findOneRequest(placeId);
+		User user = userRepository.findOne(userId);
+		place.setUserWhoReserved(user);
+		place.setIsFree(false);
+		repository.save(place);
+		user.setPlace(place);
+		userRepository.save(user);
+	}
+
+	@Override
+	public void cancelAllReservations(Integer userId, Integer placeId) {
+		Place place = repository.findOneRequest(placeId);
+		User user = userRepository.findOne(userId);
+		place.setIsFree(true);
+		place.setUserWhoReserved(null);
+		user.setPlace(null);
+		userRepository.save(user);
+		repository.save(place);
+		
 	}
 
 }

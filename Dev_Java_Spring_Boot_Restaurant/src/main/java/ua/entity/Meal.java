@@ -45,8 +45,8 @@ public class Meal extends AbstractEntityName{
 	
 	private int countOfVoted;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private User user;
+	@ManyToMany(mappedBy="tastedMeals")
+	private List<User> users;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Cuisine cuisine;
@@ -57,14 +57,14 @@ public class Meal extends AbstractEntityName{
 	@ManyToMany
 	private List<Component> components = new ArrayList<>();
 	
-	public User getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
-	
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
-	
+
 	public BigDecimal getSumOfRate() {
 		return sumOfRate;
 	}

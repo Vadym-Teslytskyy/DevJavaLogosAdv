@@ -21,7 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <!-- My style CSS -->
     <link rel="stylesheet" href="/css/main_page.css" type="text/css">
-<title>MyRestaurant(Meals-Menu)</title>
+<title>MyRestaurant(Admin-Orders)</title>
 </head>
 <body>
 
@@ -87,53 +87,88 @@
         </div>
         
         <!-- Body -->
-        <div class="container-fluid">
-        	<div class="row mt-5">
-        		<!-- Table with places -->
-        		<div class="col-5 mt-4">
-        			<div class="row">
-						<div class="col-12">
-						<h4 style="font-style:bold;">All of this places are free now:</h4>
-							<table class="table table-bordered">
-								<tr>
-									<th class="text-center">Number of place</th>
-									<th class="text-center">Count of people</th>
-									<th class="text-center">Options</th>
+        <div class="container mt-5">
+        	<div class="row">
+        		<h3 class="mt-2">All orders:</h3>
+        	</div>
+        </div>
+        <div class="container">
+        <div class="row mt-2">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<tr>
+						<th class="text-center">Place</th>
+						<th class="text-center">Meals</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Options</th>
 					</tr>
-					<c:forEach var="place" items="${places.content}">
+					<c:if test="${empty orders.content}">
+		    			<tr>
+		    			<td colspan=3><h3 class="text-center">Orders with such parameters not found</h3></td>
+		    			</tr>
+					</c:if>
+					<c:forEach var="order" items="${orders.content}">
 						<tr>
-							<td>${place.number}</td>
-							<td>${place.countofPeople}</td>
-							<td class="text-center">
-							<sec:authorize access="isAnonymous()">
-                                <a href="/login<custom:allParams/>" class="btn btn-outline-success btn-sm">Reserve(Please sing in)</a>
-                             </sec:authorize>
-                             <sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}" class="btn btn-outline-success btn-sm">Reserve</a>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}/cancel" class="btn btn-outline-warning btn-sm">Cancel</a>
-							</sec:authorize>
+							<td>${order.place}</td>
+							<td>
+									<c:forEach var="orderedMeal" items="${order.meals}">
+										<img src="${orderedMeal.photoUrl}?version=${orderedMeal.version}" style="height: 50px">${orderedMeal.name}
+									</c:forEach>
 							</td>
+							<td>${order.status}</td>
+							<td class="text-center">
+								<div class="dropdown">
+									<button class="btn btn-outline-warning dropdown-toggle" type="button"
+										id="dropdownMenuButton" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">Change Status</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="/admin/adminOrder/updateStatus/${order.id}/${order.status = ACCEPTED}<custom:allParams/>">Accepted</a>
+										<a class="dropdown-item" href="/admin/adminOrder/updateStatus/${order.id}/${order.status}<custom:allParams/>">Is being prepared</a>
+										<a class="dropdown-item" href="/admin/adminOrder/updateStatus/${order.id}/${order.status}<custom:allParams/>">Is ready</a>
+										<a class="dropdown-item" href="/admin/adminOrder/updateStatus/${order.id}/${order.status}<custom:allParams/>">Is paid</a>
+									</div>
+								</div> 
+							</td>
+						</tr>
+					</c:forEach>
+</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<tr>
+						<th class="text-center">Meal</th>
+						<th class="text-center">Status</th>
+					</tr>
+					<c:if test="${empty orders}">
+		    			<tr>
+		    			<td colspan=3><h3 class="text-center">Orders for this place not found</h3></td>
+		    			</tr>
+					</c:if>
+					<c:forEach var="order" items="${orders.content}">
+						<tr>
+							<td>
+									<c:forEach var="orderedMeal" items="${order.meals}">
+										<img src="${orderedMeal.photoUrl}?version=${orderedMeal.version}" style="height: 50px">${orderedMeal.name}
+									</c:forEach>
+							</td>
+							<td class="text-center">${order.status}</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
-        		</div>
-        		<!-- Image of places -->
-        		<div class="col-7 mt-4">
-        			<img alt="Error" src="/images/8bbf376af40a1dfddc7147f871860d2c.jpg" class="img-fluid">
-        		</div>
-        	</div>
         </div>
-        <div class="container">
+        
+        
+        <%-- <div class="container">
         				<div class="row mt-2">
 		<div class="col-4">
-				<form:form action="/places" method="GET" modelAttribute="filter">
+				<form:form action="/places/${user.place.id}/order" method="GET" modelAttribute="filter">
 					<div class="form-group row">
 						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search by place number"/>
+							<form:input class="form-control" path="search" placeholder="Search by meal name"/>
 						</div>
 					</div>
 				</form:form>
@@ -159,8 +194,7 @@
 				<custom:pageable page="${places}"/>
 			</div>
 		</div>
-	</div>
-        </div>
+	</div> --%>
        	<!-- /Body -->
          <div class="container-fluid">
         <div class="row footer">
@@ -230,7 +264,6 @@
         </div>
     </div>
     
-	
 	
 </body>
 </html>

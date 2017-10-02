@@ -87,53 +87,69 @@
         </div>
         
         <!-- Body -->
-        <div class="container-fluid">
-        	<div class="row mt-5">
-        		<!-- Table with places -->
-        		<div class="col-5 mt-4">
-        			<div class="row">
-						<div class="col-12">
-						<h4 style="font-style:bold;">All of this places are free now:</h4>
-							<table class="table table-bordered">
-								<tr>
-									<th class="text-center">Number of place</th>
-									<th class="text-center">Count of people</th>
-									<th class="text-center">Options</th>
+        <div class="container mt-5">
+        	<div class="row">
+        		<h3 class="mt-2">Choose meals for your order:</h3>
+        	</div>
+        </div>
+        <div class="container">
+        <div class="row mt-2">
+			<div class="col-12">
+				<form:form action="/places/${place.id}/order" method="POST" modelAttribute="order">
+					<div class="row">
+						<div class="col-6 ml-auto" style="color: red;">
+							<form:errors path="meals" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-2 col-form-label" for="meal">Meals:</label>
+						<div class="col-6">
+							<form:select class="form-control" id="meal" path="meals" items="${meals}" multiple="multiple"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-8 mr-auto">
+							<button class="btn btn-sm btn-outline-success">Order</button>
+						</div>
+					</div>
+				</form:form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-bordered">
+					<tr>
+						<th class="text-center">Meal</th>
+						<th class="text-center">Status</th>
 					</tr>
-					<c:forEach var="place" items="${places.content}">
+					<c:if test="${empty orders}">
+		    			<tr>
+		    			<td colspan=3><h3 class="text-center">Orders for this place not found</h3></td>
+		    			</tr>
+					</c:if>
+					<c:forEach var="order" items="${orders.content}">
 						<tr>
-							<td>${place.number}</td>
-							<td>${place.countofPeople}</td>
-							<td class="text-center">
-							<sec:authorize access="isAnonymous()">
-                                <a href="/login<custom:allParams/>" class="btn btn-outline-success btn-sm">Reserve(Please sing in)</a>
-                             </sec:authorize>
-                             <sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}" class="btn btn-outline-success btn-sm">Reserve</a>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<a href="/places/${place.id}/cancel" class="btn btn-outline-warning btn-sm">Cancel</a>
-							</sec:authorize>
+							<td>
+									<c:forEach var="orderedMeal" items="${order.meals}">
+										<img src="${orderedMeal.photoUrl}?version=${orderedMeal.version}" style="height: 50px">${orderedMeal.name}
+									</c:forEach>
 							</td>
+							<td class="text-center">${order.status}</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
-        		</div>
-        		<!-- Image of places -->
-        		<div class="col-7 mt-4">
-        			<img alt="Error" src="/images/8bbf376af40a1dfddc7147f871860d2c.jpg" class="img-fluid">
-        		</div>
-        	</div>
         </div>
-        <div class="container">
+        
+        
+        <%-- <div class="container">
         				<div class="row mt-2">
 		<div class="col-4">
-				<form:form action="/places" method="GET" modelAttribute="filter">
+				<form:form action="/places/${user.place.id}/order" method="GET" modelAttribute="filter">
 					<div class="form-group row">
 						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search by place number"/>
+							<form:input class="form-control" path="search" placeholder="Search by meal name"/>
 						</div>
 					</div>
 				</form:form>
@@ -159,8 +175,7 @@
 				<custom:pageable page="${places}"/>
 			</div>
 		</div>
-	</div>
-        </div>
+	</div> --%>
        	<!-- /Body -->
          <div class="container-fluid">
         <div class="row footer">
@@ -230,7 +245,6 @@
         </div>
     </div>
     
-	
 	
 </body>
 </html>
