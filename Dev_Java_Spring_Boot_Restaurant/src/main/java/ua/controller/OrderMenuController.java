@@ -54,6 +54,7 @@ public class OrderMenuController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("meals", service.findAllMealsName());
 		model.addAttribute("place", user.getPlace());
 		model.addAttribute("orders", service.findAllView(user.getPlace().getId(), pageable));

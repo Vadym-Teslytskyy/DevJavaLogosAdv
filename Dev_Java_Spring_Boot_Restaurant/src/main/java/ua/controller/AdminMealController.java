@@ -26,7 +26,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.cloudinary.*;
 import com.cloudinary.utils.ObjectUtils;
 
-
+import ua.entity.User;
 import ua.model.filter.MealFilter;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.FileRequest;
@@ -77,7 +77,8 @@ public class AdminMealController {
 }
 	
 	@GetMapping
-	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
+	public String show(Model model, User user, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
+		model.addAttribute("user", user);
 		model.addAttribute("cuisines", service.findAllCuisines());
 		model.addAttribute("components", service.findAllComponents());
 		model.addAttribute("ingredients", service.findAllIngredients());
@@ -92,9 +93,9 @@ public class AdminMealController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter, @ModelAttribute("fileRequest") FileRequest fileRequest) {
+	public String save(@ModelAttribute("meal") @Valid MealRequest request, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter, @ModelAttribute("fileRequest") FileRequest fileRequest, User user) {
 		if(br.hasErrors()) 
-			return show(model, pageable, filter);
+			return show(model, user, pageable, filter);
 		String photoUrl = writer.write(fileRequest.getFile());
 		File toUpload = new File(path+photoUrl);
 		try {
@@ -117,9 +118,9 @@ public class AdminMealController {
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter){
+	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("mealFilter") MealFilter filter, User user){
 		model.addAttribute("meal", service.findOneRequest(id));
-		return show(model, pageable, filter);
+		return show(model, user, pageable, filter);
 	}
 	
 	@GetMapping("/cancel")

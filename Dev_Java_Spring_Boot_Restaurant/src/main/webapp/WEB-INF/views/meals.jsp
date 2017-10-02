@@ -45,9 +45,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
+                            <c:if test="${user.place != null }">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Order</a>
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
                             </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                         </ul>
                         <form:form action="/meals" method="GET" modelAttribute="mealFilter" class="form-inline my-2 my-lg-0" >
                             <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
@@ -60,7 +67,7 @@
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -198,11 +205,21 @@
                         		<p><a href="/meal/${meal.id}" class="btn btn-default" role="button">Show more <span class="glyphicon glyphicon-chevron-right"></span></a></p>
                      		</div>
                      		<div class="col-4">
-                     			<sec:authorize access="hasRole('ROLE_CLIENT')">
-                             		<form:form action="#<%-- /buy(orderIt) --%>">
-										<button class="btn btn-success ml-1">Buy now!</button>
-									</form:form>
-                     			</sec:authorize>
+                     			<c:if test="${user.place != null }">
+                                			<sec:authorize access="isAuthenticated()">
+                             					<form:form action="/places/${user.place.id}/order" method="POST" modelAttribute="order">
+													<button class="btn btn-success">Buy now!</button>
+												</form:form>
+                     						</sec:authorize>
+										</c:if>
+										<c:if test="${user.place == null }">
+												<sec:authorize access="isAuthenticated()">
+                             					<a class="nav-link" href="/places">Buy now!(But first reserve place)</a>
+                     							</sec:authorize>
+                     							<sec:authorize access="isAnonymous()">
+                             					<a class="nav-link" href="/login">Buy now!(But first sing in)</a>
+                     							</sec:authorize>
+                            			</c:if>
                      		</div>
                      </div>
                     </div>
@@ -242,7 +259,7 @@
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Meals</a>
+                        <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ingredients">Ingredients</a>
@@ -250,16 +267,24 @@
                     <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Order</a>
-                    </li>
+                    	<c:if test="${user.place != null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
+                            </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
+
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
                                 <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">

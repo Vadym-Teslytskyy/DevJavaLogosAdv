@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ua.entity.Ingredient;
+import ua.entity.User;
 import ua.model.filter.SimpleFilter;
 import ua.service.IngredientService;
 import ua.validation.flag.IngredientFlag;
@@ -45,8 +46,9 @@ private final IngredientService service;
 	}
 	
 	@GetMapping
-	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
+	public String show(Model model, User user, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
 		model.addAttribute("ingredients", service.findAll(pageable,filter));
+		model.addAttribute("user", user);
 		if(service.findAll(pageable, filter).hasContent()||pageable.getPageNumber()==0){
 			return "ingredient";
 		}else return "redirect:/admin/ingredient"+buildParams(pageable, filter);
@@ -60,16 +62,16 @@ private final IngredientService service;
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("ingredient") @Validated(IngredientFlag.class) Ingredient ingredient, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
-		if(br.hasErrors()) return show(model,pageable,filter);
+	public String save(@ModelAttribute("ingredient") @Validated(IngredientFlag.class) Ingredient ingredient, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter, User user){
+		if(br.hasErrors()) return show(model, user, pageable, filter);
 		service.save(ingredient);
 		return cancel(status, pageable, filter);
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter, User user){
 		model.addAttribute("ingredient", service.findOne(id));
-		return show(model, pageable, filter);
+		return show(model, user, pageable, filter);
 	}
 	
 	@GetMapping("/cancel")

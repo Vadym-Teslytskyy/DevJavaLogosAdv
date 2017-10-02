@@ -39,6 +39,7 @@ public class MealsMenuController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("cuisines", service.findAllCuisines());
 		model.addAttribute("ingredients", service.findAllIngredients());
 		model.addAttribute("meals", service.findAll(filter, pageable));

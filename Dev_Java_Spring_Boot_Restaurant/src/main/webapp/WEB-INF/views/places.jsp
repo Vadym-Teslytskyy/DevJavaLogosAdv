@@ -21,7 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <!-- My style CSS -->
     <link rel="stylesheet" href="/css/main_page.css" type="text/css">
-<title>MyRestaurant(Meals-Menu)</title>
+<title>MyRestaurant(Places)</title>
 </head>
 <body>
 
@@ -45,9 +45,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
+                             <c:if test="${user.place != null }">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Order</a>
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
                             </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                         </ul>
                         <form:form action="/meals" method="GET" modelAttribute="filter" class="form-inline my-2 my-lg-0" >
                             <form:input path="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"/>
@@ -60,7 +67,7 @@
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -188,7 +195,7 @@
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Meals</a>
+                        <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ingredients">Ingredients</a>
@@ -196,16 +203,23 @@
                     <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Order</a>
-                    </li>
+                    <c:if test="${user.place != null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
+                            </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
                                 <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i>
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">

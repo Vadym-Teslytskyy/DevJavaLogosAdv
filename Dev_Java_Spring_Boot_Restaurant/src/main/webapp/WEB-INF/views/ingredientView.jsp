@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/main_page.css" type="text/css">
-<title>MyRestaurant</title>
+<title>MyRestaurant(Ingredient)</title>
 </head>
 <body>
 
@@ -41,9 +41,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/places">Places</a>
                             </li>
+                           <c:if test="${user.place != null }">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Order</a>
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
                             </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -55,7 +62,7 @@
                                 <a class="nav-link" href="/login">Sing in  <i class="fa fa-sign-in" aria-hidden="true"></i></a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> ${message}</a>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
 									<a href="/admin" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i> Admin</a>
@@ -106,7 +113,21 @@
 								<img src="${meal.photoUrl}?version=${meal.version}" style="width: 100px;">
 							</td>
 							<td class="text-center">
-								<a href="/admin/meal/update/${meal.id}<custom:allParams/>" class="btn btn-outline-success btn-sm">Buy now!</a>
+								<c:if test="${user.place != null }">
+                                			<sec:authorize access="isAuthenticated()">
+                             					<form:form action="/places/${user.place.id}/order" method="POST" modelAttribute="order">
+													<button class="btn btn-success">Buy now!</button>
+												</form:form>
+                     						</sec:authorize>
+										</c:if>
+										<c:if test="${user.place == null }">
+												<sec:authorize access="isAuthenticated()">
+                             					<a class="nav-link" href="/places">Buy now!(But first reserve place)</a>
+                     							</sec:authorize>
+                     							<sec:authorize access="isAnonymous()">
+                             					<a class="nav-link" href="/login">Buy now!(But first sing in)</a>
+                     							</sec:authorize>
+                            			</c:if>
 							</td>
 						</tr>
 					</c:forEach>
@@ -185,15 +206,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/places">Places</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Order</a>
-                    </li>
+                    <c:if test="${user.place != null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places/${user.place.id}/order">Order</a>
+                            </li>
+							</c:if>
+							<c:if test="${user.place == null }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/places">Order</a>
+                            </li>
+                            </c:if>
                      <li class="nav-item">
                             <sec:authorize access="isAnonymous()">
                                 <a class="nav-link" href="/login">Sing in <i class="fa fa-sign-in" aria-hidden="true"></i></a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">

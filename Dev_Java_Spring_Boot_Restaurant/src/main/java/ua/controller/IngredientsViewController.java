@@ -30,6 +30,7 @@ public class IngredientsViewController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("meals", service.findMealsOfIngredient(id, pageable));
 		model.addAttribute("ingredient", service.findById(id));
 		return "ingredientView";

@@ -40,6 +40,7 @@ public class IngredientsMenuController {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
 		model.addAttribute("ingredients", service.findAll(pageable,filter));
+		model.addAttribute("user", user);
 		if(service.findAll(pageable, filter).hasContent()||pageable.getPageNumber()==0){
 			return "ingredients";
 		}else return "redirect:/ingredients"+buildParams(pageable, filter);

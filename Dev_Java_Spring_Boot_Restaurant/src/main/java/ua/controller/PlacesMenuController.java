@@ -37,6 +37,7 @@ public class PlacesMenuController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("places", service.findAllView(pageable));
 		return "places";
 	}

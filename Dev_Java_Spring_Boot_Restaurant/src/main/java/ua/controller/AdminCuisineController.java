@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ua.entity.Cuisine;
+import ua.entity.User;
 import ua.model.filter.SimpleFilter;
 import ua.service.CusineService;
 import ua.validation.flag.CuisineFlag;
@@ -45,7 +46,8 @@ public class AdminCuisineController {
 	}
 	
 	@GetMapping
-	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
+	public String show(Model model, User user, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter) {
+		model.addAttribute("user", user);
 		model.addAttribute("cuisines", service.findAll(pageable, filter));
 		return "cuisine";
 	}
@@ -57,16 +59,16 @@ public class AdminCuisineController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("cuisine") @Validated(CuisineFlag.class) Cuisine cuisine, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
-		if(br.hasErrors()) return show(model,pageable,filter);
+	public String save(@ModelAttribute("cuisine") @Validated(CuisineFlag.class) Cuisine cuisine, BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter, User user){
+		if(br.hasErrors()) return show(model,user,pageable,filter);
 		service.save(cuisine);
 		return cancel(status,pageable, filter);
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+	public String update(@PathVariable Integer id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter,User user){
 		model.addAttribute("cuisine", service.findOne(id));
-		return show(model,pageable,filter);
+		return show(model,user,pageable,filter);
 	}
 	
 	@GetMapping("/cancel")
