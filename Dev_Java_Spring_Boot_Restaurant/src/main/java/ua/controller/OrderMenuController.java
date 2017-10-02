@@ -24,7 +24,7 @@ import ua.service.MealService;
 import ua.service.OrderService;
 
 @Controller
-@RequestMapping("/places/{id}/order")
+@RequestMapping("/places/{placeid}/order")
 @SessionAttributes("order")
 public class OrderMenuController {
 
@@ -62,13 +62,13 @@ public class OrderMenuController {
 	}
 	
 	@PostMapping
-	public String save(@PathVariable Integer id, @ModelAttribute("order") @Valid OrderRequest request,
+	public String save(@PathVariable Integer placeid, @ModelAttribute("order") @Valid OrderRequest request,
 			BindingResult br, Model model, SessionStatus status, @PageableDefault Pageable pageable, User user, @ModelAttribute("filter") SimpleFilter filter) {
 //		if (br.hasErrors())
 //			return show(model, user, pageable, filter);
 		if (!request.getMeals().isEmpty())
 			service.saveOrder(request, user);
-		return "redirect:/places/{id}/order";
+		return "redirect:/places/{placeid}/order";
 		}
 	
 	private String buildParams(Pageable pageable, SimpleFilter filter) {

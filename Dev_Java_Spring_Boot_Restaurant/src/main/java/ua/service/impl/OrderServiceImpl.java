@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import ua.entity.Meal;
 import ua.entity.Order;
 import ua.entity.OrderStatus;
-import ua.entity.Place;
 import ua.entity.User;
 import ua.model.request.OrderRequest;
 import ua.model.view.MealView;
@@ -44,9 +43,7 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public void saveOrder(OrderRequest request, User user) {
-		Place place = new Place();
-		place.setId(user.getPlace().getId());
-		request.setPlace(place);
+		request.setPlace(user.getPlace());
 		request.setStatus(OrderStatus.ACCEPTED);
 		Order order = new Order();
 		order.setId(request.getId());
@@ -73,6 +70,7 @@ public class OrderServiceImpl implements OrderService{
 		request.setId(order.getId());
 		request.setPlace(order.getPlace());
 		request.setMeals(order.getMeals());
+		request.setStatus(order.getStatus());
 		return request;
 	}
 
