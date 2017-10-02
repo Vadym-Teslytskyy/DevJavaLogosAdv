@@ -202,7 +202,7 @@
             <div class="col-sm-3">
                 <ul class="nav flex-column hover-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Meals</a>
+                        <a class="nav-link active" href="/meals">Meals</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/ingredients">Ingredients</a>
@@ -226,7 +226,7 @@
                                 </a>
                              </sec:authorize>
                              <sec:authorize access="hasRole('ROLE_CLIENT')">
-                             <a href="#" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
+                             <a href="/profile/${user.id}" class="btn btn-dark"><i class="fa fa-user" aria-hidden="true"></i>
                               ${message}</a>
                              </sec:authorize>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
