@@ -12,10 +12,13 @@ import ua.entity.Meal;
 import ua.entity.Order;
 import ua.entity.OrderStatus;
 import ua.entity.User;
+import ua.model.filter.OrderFilter;
 import ua.model.request.OrderRequest;
 import ua.model.view.MealView;
 import ua.model.view.OrderView;
+import ua.model.view.PlaceView;
 import ua.repository.OrderRepository;
+import ua.repository.OrderViewRepository;
 import ua.repository.UserRepository;
 import ua.service.OrderService;
 
@@ -24,12 +27,15 @@ public class OrderServiceImpl implements OrderService{
 
 	private final OrderRepository repository;
 	
+	private final OrderViewRepository orderViewRepository;
+	
 	private final UserRepository userRepository;
 	
 	@Autowired
-	public OrderServiceImpl(OrderRepository repository, UserRepository userRepository) {
+	public OrderServiceImpl(OrderRepository repository, UserRepository userRepository, OrderViewRepository orderViewRepository) {
 		this.repository = repository;
 		this.userRepository = userRepository;
+		this.orderViewRepository = orderViewRepository;
 	}
 
 	@Override
@@ -82,6 +88,42 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<MealView> findForOrder(Integer orderId) {
 		return repository.findForOrder(orderId);
+	}
+
+	@Override
+	public Page<OrderView> findAllOrders(Pageable pageable, OrderFilter filter) {
+		Page<OrderView> orderPage = orderViewRepository.findAllView(filter, pageable);
+		for (OrderView orderView : orderPage) {
+			orderView.setMeals(repository.findForOrder(orderView.getId()));
+		}
+		return orderPage;
+	}
+
+	@Override
+	public Order findOrderById(Integer id) {
+		return repository.findOrderById(id);
+	}
+
+	@Override
+	public void updateStatus(Integer id, OrderStatus status) {
+		Order order = repository.findOrderById(id);
+		order.setStatus(status);
+		repository.save(order);
+	}
+
+	@Override
+	public List<Order> findOrderByPlaceId(Integer placeId) {
+		return repository.findByPlaceId(placeId);
+	}
+
+	@Override
+	public List<OrderStatus> findAllStatuses() {
+		return repository.findAllStatuses();
+	}
+
+	@Override
+	public List<PlaceView> findAllPlacesView() {
+		return repository.findAllPlacesView();
 	}
 
 }

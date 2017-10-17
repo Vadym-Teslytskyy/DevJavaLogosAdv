@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ua.entity.User;
+import ua.model.filter.OrderFilter;
 import ua.model.filter.SimpleFilter;
 import ua.model.request.OrderRequest;
 import ua.service.MealService;
@@ -37,8 +38,13 @@ public class OrderMenuController {
 		this.mealService = mealService;
 	}
 	
+	@ModelAttribute("orderFilter")
+	public OrderFilter getFilter(){
+		return new OrderFilter();
+	}
+	
 	@ModelAttribute("filter")
-	public SimpleFilter getFilter() {
+	public SimpleFilter getSimpleFilter(){
 		return new SimpleFilter();
 	}
 	
@@ -48,13 +54,14 @@ public class OrderMenuController {
 	}
 	
 	@GetMapping
-	public String show(Model model, User user, @PageableDefault Pageable pageable,	@ModelAttribute("filter") SimpleFilter filter){
+	public String show(Model model, User user, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
 		if(user!=null){
 			model.addAttribute("message", "View profile "+user.getEmail());
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
 		model.addAttribute("user", user);
+		model.addAttribute("statuses", service.findAllStatuses());
 		model.addAttribute("meals", service.findAllMealsName());
 		model.addAttribute("place", user.getPlace());
 		model.addAttribute("orders", service.findAllView(user.getPlace().getId(), pageable));

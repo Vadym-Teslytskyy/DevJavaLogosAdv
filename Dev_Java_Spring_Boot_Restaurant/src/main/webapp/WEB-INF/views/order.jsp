@@ -126,6 +126,7 @@
 			<div class="col-12">
 				<table class="table table-bordered">
 					<tr>
+						<th class="text-center">Time of order`s changes</th>
 						<th class="text-center">Meal</th>
 						<th class="text-center">Status</th>
 					</tr>
@@ -136,6 +137,9 @@
 					</c:if>
 					<c:forEach var="order" items="${orders.content}">
 						<tr>
+							<td class="text-center">
+								<p>${order.time}</p>
+							</td>
 							<td>
 									<c:forEach var="orderedMeal" items="${order.meals}">
 										<img src="${orderedMeal.photoUrl}?version=${orderedMeal.version}" style="height: 50px">${orderedMeal.name}
@@ -150,39 +154,30 @@
         </div>
         
         
-        <%-- <div class="container">
-        				<div class="row mt-2">
-		<div class="col-4">
-				<form:form action="/places/${user.place.id}/order" method="GET" modelAttribute="filter">
-					<div class="form-group row">
-						<div class="col-12">
-							<form:input class="form-control" path="search" placeholder="Search by meal name"/>
-						</div>
-					</div>
-				</form:form>
-			</div>
-			<div class="col-8">
+         <div class="container">
+        	<div class="row mt-2 mb-2">
+			<div class="col-12">
 				<div class="row">
 					<div class="col-6 text-center">
 							<button class="dropdown-toggle btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown">Sort
 							</button>
 							<div class="dropdown-menu">
-								<custom:sort innerHtml="Number asc" paramValue="number"/>
-								<custom:sort innerHtml="Number desc" paramValue="number,desc"/>
+								<custom:sort innerHtml="Time asc" paramValue="time"/>
+								<custom:sort innerHtml="Time desc" paramValue="time,desc"/>
 							</div>
 					</div>
 					<div class="col-6 text-center">
-						<custom:size posibleSizes="1,2,5,10" size="${places.size}" />
+						<custom:size posibleSizes="1,2,5,10" size="${orders.size}" />
 					</div>
 				</div>
 			</div>
 	</div>
 		<div class="row">
 			<div class="col-12">
-				<custom:pageable page="${places}"/>
+				<custom:pageable page="${orders}"/>
 			</div>
 		</div>
-	</div> --%>
+	</div> 
        	<!-- /Body -->
          <div class="container-fluid">
         <div class="row footer">

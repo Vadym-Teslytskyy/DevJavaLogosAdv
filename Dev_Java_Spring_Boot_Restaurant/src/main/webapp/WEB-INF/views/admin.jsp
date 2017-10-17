@@ -19,6 +19,7 @@
                     <a href="/admin/place" class="btn btn-light btn-lg btn-block">Place adding</a>
                     <a href="/admin/component" class="btn btn-light btn-lg btn-block">Component adding</a>
                     <a href="/admin/meal" class="btn btn-light btn-lg btn-block">Meal adding</a>
+                    <a href="/admin/order" class="btn btn-light btn-lg btn-block">Orders changing</a>
                     <a href="/profile/${user.id}" class="btn btn-light btn-lg btn-block">Your profile</a>
                     <a href="/" class="btn btn-default btn-lg btn-block">Back to main page</a>
                 </div>

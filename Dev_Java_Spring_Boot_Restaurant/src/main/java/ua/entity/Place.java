@@ -1,6 +1,5 @@
 package ua.entity;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;

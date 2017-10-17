@@ -46,6 +46,7 @@ public class MainController {
 		}else {
 			model.addAttribute("message", "Hello unregistrated user");
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("components", service.findComponentsOfMeal(id));
 		model.addAttribute("meal", service.findById(id));
 		return "mealView";

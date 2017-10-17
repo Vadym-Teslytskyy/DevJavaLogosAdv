@@ -1,5 +1,6 @@
 package ua.model.view;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import ua.entity.OrderStatus;
@@ -9,6 +10,8 @@ public class OrderView {
 	
 	private Integer id;
 	
+	private LocalDateTime time;
+	
 	private List<MealView> meals;
 	
 	private Place place;
@@ -16,10 +19,11 @@ public class OrderView {
 	private OrderStatus status;
 	
 
-	public OrderView(Integer id, Place place, OrderStatus status) {
+	public OrderView(Integer id, Place place, OrderStatus status, LocalDateTime time) {
 		this.id = id;
 		this.place = place;
 		this.status = status;
+		this.time = time;
 	}
 
 	
@@ -55,6 +59,17 @@ public class OrderView {
 	public void setPlace(Place place) {
 		this.place = place;
 	}
+
+
+	public LocalDateTime getTime() {
+		return time;
+	}
+
+
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+	
 	
 	
 }

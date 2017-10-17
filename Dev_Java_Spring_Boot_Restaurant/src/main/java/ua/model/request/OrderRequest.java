@@ -17,7 +17,6 @@ public class OrderRequest {
 	@NotNull(message="Виберіть хоч 1 страву для замовлення")
 	private List<Meal> meals;
 	
-	//@NotNull(message="Зарезервуйте столик перед замовленням")
 	private Place place;
 
 	public Integer getId() {
